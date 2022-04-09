@@ -1,1 +1,1 @@
-(()=>{"use strict";var e=document.querySelector("#increment"),t=document.querySelector("#decrement"),n=document.querySelector("#count-value");console.log("!!!!!!!!!!"),e.addEventListener("click",(function(){var e,t=parseFloat(n.innerText),r=(e=t,++e);n.innerText=r.toString()})),t.addEventListener("click",(function(){var e,t=parseFloat(n.innerText),r=(e=t,--e);n.innerText=r.toString()}))})();
+(()=>{"use strict";document.querySelector("#increment")})();
