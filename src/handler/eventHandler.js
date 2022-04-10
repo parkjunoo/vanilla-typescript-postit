@@ -38,3 +38,41 @@ export function handleMouseDown(event) {
     classList.add("hold");
   }
 }
+
+// 공 움직임 이벤트 핸들러
+export function handleMouseMove(event) {
+  event.preventDefault();
+
+  const el = document.querySelector(".ball.hold");
+  if (el) {
+    // 움직이는 마우스 커서의 XY좌표
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+
+    // 선택한 공 안에 있는 마우스 커서의 XY좌표
+    const gapX = el.getAttribute("gap-x");
+    const gapY = el.getAttribute("gap-y");
+
+    // 마우스 커서의 위치에 따른 공의 XY좌표
+    const ballX = mouseX - gapX;
+    const ballY = mouseY - gapY;
+
+    // 공의 위치를 변경
+    el.style.left = ballX + "px";
+    el.style.top = ballY + "px";
+  }
+}
+
+// 공 놓기 이벤트 핸들러
+export function handleMouseUp(event) {
+  event.preventDefault();
+
+  const el = document.querySelector(".ball.hold");
+  if (el) {
+    // 움직이면 적용된 속성 및 class를 삭제
+    el.removeAttribute("gap-x");
+    el.removeAttribute("gap-y");
+
+    el.classList.remove("hold");
+  }
+}
