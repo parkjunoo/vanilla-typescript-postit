@@ -128,8 +128,20 @@ body {
   justify-content: center;
 }
 .postit {
+  padding: 10px 6px 6px 10px;
   position: absolute;
   width: 200px;
+  height: 200px;
+  background-image: url("/public//assets//postit-memo.png");
+  background-color: #86713900;
+}
+.postit-top-area {
+  width: 100%;
+  height: 10%;
+}
+.postit-contents-area {
+  width: 100%;
+  height: 90%;
 }
 .postit-stk {
   position: absolute;

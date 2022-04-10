@@ -7,7 +7,6 @@ import {
 
 const postitList = document.querySelectorAll(".postit");
 const postitStk = document.querySelector(".postit-stk");
-console.log(postitStk);
 
 postitStk?.addEventListener("mousedown", createNewPostit);
 
