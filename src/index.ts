@@ -12,7 +12,6 @@ console.log(postitStk);
 postitStk?.addEventListener("mousedown", createNewPostit);
 
 postitList.forEach(function (postit: any, idx) {
-  // 공의 우선순위 설정
   let priority: any = postit.getAttribute("priority");
   if (!priority) {
     priority = idx + 1;
@@ -20,10 +19,8 @@ postitList.forEach(function (postit: any, idx) {
   }
   postit.style["z-index"] = priority;
 
-  // 공 선택 이벤트 바인딩
   postit.addEventListener("mousedown", handleMouseDown);
 });
 
-// 마우스 이벤트 바인딩
 document.addEventListener("mousemove", handleMouseMove);
 document.addEventListener("mouseup", handleMouseUp);
