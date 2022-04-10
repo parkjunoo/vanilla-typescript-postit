@@ -3,10 +3,8 @@ export function createNewPostit(e) {
 }
 
 export function handleMouseDown(event) {
-  event.preventDefault();
-
   const postitList = document.querySelectorAll(".postit");
-  const el = event.target;
+  const el = event.target.parentElement;
   const classList = el.classList;
 
   if (!classList.contains("hold")) {
