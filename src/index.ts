@@ -4,19 +4,19 @@ import {
   handleMouseUp,
 } from "./handler/eventHandler.js";
 
-const balls = document.querySelectorAll(".ball");
+const postitList = document.querySelectorAll(".postit");
 
-balls.forEach(function (ball: any, idx) {
+postitList.forEach(function (postit: any, idx) {
   // 공의 우선순위 설정
-  let priority: any = ball.getAttribute("priority");
+  let priority: any = postit.getAttribute("priority");
   if (!priority) {
     priority = idx + 1;
-    ball.setAttribute("priority", priority);
+    postit.setAttribute("priority", priority);
   }
-  ball.style["z-index"] = priority;
+  postit.style["z-index"] = priority;
 
   // 공 선택 이벤트 바인딩
-  ball.addEventListener("mousedown", handleMouseDown);
+  postit.addEventListener("mousedown", handleMouseDown);
 });
 
 // 마우스 이벤트 바인딩

@@ -128,7 +128,7 @@ body {
   justify-content: center;
 }
 
-.ball {
+.postit {
   position: absolute;
   width: 200px;
 }
