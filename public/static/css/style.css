@@ -127,7 +127,10 @@ body {
   align-items: center;
   justify-content: center;
 }
-
+.postit {
+  position: absolute;
+  width: 200px;
+}
 .postit-stk {
   position: absolute;
   width: 200px;
