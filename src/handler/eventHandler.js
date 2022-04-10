@@ -1,10 +1,13 @@
+export function createNewPostit(e) {
+  console.log(e);
+}
+
 export function handleMouseDown(event) {
   event.preventDefault();
 
   const postitList = document.querySelectorAll(".postit");
   const el = event.target;
   const classList = el.classList;
-  console.log("!!!!", postitList, el, classList);
 
   if (!classList.contains("hold")) {
     // 공을 클릭했을 때, 마우스 커서의 XY좌표
