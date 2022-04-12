@@ -43,14 +43,12 @@ export function handleMouseMove(e: MouseEvent) {
   if (el) {
     const mouseX = e.clientX;
     const mouseY = e.clientY;
-    console.log("!!!!!!", mouseX, mouseY);
 
     const gapX = el.getAttribute("gap-x");
     const gapY = el.getAttribute("gap-y");
 
     const postitX = mouseX - Number(gapX);
     const postitY = mouseY - Number(gapY);
-    console.log("@@@@@@@@@", gapX, gapY, postitX, postitY);
 
     el.style.left = postitX + "px";
     el.style.top = postitY + "px";

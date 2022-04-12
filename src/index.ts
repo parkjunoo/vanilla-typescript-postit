@@ -25,14 +25,8 @@ postitList.forEach(function (postit: any, idx) {
 document.addEventListener("mousemove", handleMouseMove);
 document.addEventListener("mouseup", handleMouseUp);
 
-function onDragStart(event: any) {
-  console.log("drag start");
-}
+function onDragStart(event: any) {}
 
-function onDragEnd(event: any) {
-  console.log("drag end");
-}
+function onDragEnd(event: any) {}
 
-function onDrag(event: any) {
-  console.log("on dragging");
-}
+function onDrag(event: any) {}
