@@ -2,13 +2,14 @@ import {
   handleMouseDown,
   handleMouseMove,
   handleMouseUp,
-  createNewPostit,
-} from "./handler/eventHandler.js";
+} from "./handler/movePostitHandler.js";
 
 const postitList = document.querySelectorAll(".postit");
 const postitStk = document.querySelector(".postit-stk");
 
-postitStk?.addEventListener("mousedown", createNewPostit);
+postitStk?.addEventListener("dragstart", onDragStart);
+postitStk?.addEventListener("dragend", onDragEnd);
+postitStk?.addEventListener("drag", onDrag);
 
 postitList.forEach(function (postit: any, idx) {
   let priority: any = postit.getAttribute("priority");
@@ -21,5 +22,17 @@ postitList.forEach(function (postit: any, idx) {
   postit.addEventListener("mousedown", handleMouseDown);
 });
 
-document.addEventListener("mousemove", handleMouseMove);
+// document.addEventListener("mousemove", handleMouseMove);
 document.addEventListener("mouseup", handleMouseUp);
+
+function onDragStart(event: any) {
+  console.log("drag start");
+}
+
+function onDragEnd(event: any) {
+  console.log("drag end");
+}
+
+function onDrag(event: any) {
+  console.log("on dragging");
+}

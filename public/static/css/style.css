@@ -38,6 +38,7 @@ body {
   height: 200px;
   background-image: url("/public//assets//postit-memo.png");
   background-color: #86713900;
+  opacity: 70%;
 }
 .postit-top-area {
   width: 100%;
@@ -48,8 +49,9 @@ body {
   height: 90%;
 }
 .postit-stk {
-  position: absolute;
   width: 200px;
+  height: 200px;
+  background-image: url("/public//assets//postit-memo.png");
 }
 .postit-memo-detached {
   width: 240px;
