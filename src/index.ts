@@ -2,7 +2,7 @@ import {
   handleMouseDown,
   handleMouseMove,
   handleMouseUp,
-} from "./handler/movePostitHandler.js";
+} from "./handler/movePostitHandler";
 
 const postitList = document.querySelectorAll(".postit");
 const postitStk = document.querySelector(".postit-stk");
@@ -22,7 +22,7 @@ postitList.forEach(function (postit: any, idx) {
   postit.addEventListener("mousedown", handleMouseDown);
 });
 
-// document.addEventListener("mousemove", handleMouseMove);
+document.addEventListener("mousemove", handleMouseMove);
 document.addEventListener("mouseup", handleMouseUp);
 
 function onDragStart(event: any) {

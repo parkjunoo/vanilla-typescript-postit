@@ -1,21 +1,25 @@
-export function handleMouseDown(e: MouseEvent & HTMLInputElement) {
-  const el = e.target as HTMLElement;
+interface DomMouseEvent<T extends EventTarget> extends MouseEvent {
+  readonly target: T;
+}
+
+export function handleMouseDown(e: DomMouseEvent<HTMLElement>) {
+  const el = e.target.parentElement;
   const postitList = document.querySelectorAll(".postit");
-  const classList = el.parentElement!.classList;
+  const classList = el!.classList;
 
   if (!classList.contains("hold")) {
     const mouseX = e.clientX;
     const mouseY = e.clientY;
 
-    const postitPos = el.getBoundingClientRect();
+    const postitPos = el!.getBoundingClientRect();
     const postitX = postitPos.x;
     const postitY = postitPos.y;
 
     const gapX = mouseX - postitX;
     const gapY = mouseY - postitY;
 
-    el.setAttribute("gap-x", String(gapX));
-    el.setAttribute("gap-y", String(gapY));
+    el!.setAttribute("gap-x", String(gapX));
+    el!.setAttribute("gap-y", String(gapY));
 
     const maxPriority = String(
       (postitList.length > 0
@@ -27,9 +31,8 @@ export function handleMouseDown(e: MouseEvent & HTMLInputElement) {
           )
         : 9999) + 1
     );
-    el.setAttribute("priority", maxPriority);
-    el.style.zIndex = maxPriority;
-
+    el!.setAttribute("priority", maxPriority);
+    el!.style.zIndex = maxPriority;
     classList.add("hold");
   }
 }
@@ -40,12 +43,14 @@ export function handleMouseMove(e: MouseEvent) {
   if (el) {
     const mouseX = e.clientX;
     const mouseY = e.clientY;
+    console.log("!!!!!!", mouseX, mouseY);
 
     const gapX = el.getAttribute("gap-x");
     const gapY = el.getAttribute("gap-y");
 
     const postitX = mouseX - Number(gapX);
     const postitY = mouseY - Number(gapY);
+    console.log("@@@@@@@@@", gapX, gapY, postitX, postitY);
 
     el.style.left = postitX + "px";
     el.style.top = postitY + "px";
