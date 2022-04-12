@@ -3,6 +3,7 @@ interface DomMouseEvent<T extends EventTarget> extends MouseEvent {
 }
 
 export function handleMouseDown(e: DomMouseEvent<HTMLElement>) {
+  document.addEventListener("mousemove", handleMouseMove);
   const el = e.target.parentElement;
   const postitList = document.querySelectorAll(".postit");
   const classList = el!.classList;
@@ -56,12 +57,12 @@ export function handleMouseMove(e: MouseEvent) {
 }
 
 export function handleMouseUp(e: MouseEvent) {
+  document.removeEventListener("mousemove", handleMouseMove);
   e.preventDefault();
   const el: HTMLDivElement | null = document.querySelector(".postit.hold");
   if (el) {
     el.removeAttribute("gap-x");
     el.removeAttribute("gap-y");
-
     el.classList.remove("hold");
   }
 }

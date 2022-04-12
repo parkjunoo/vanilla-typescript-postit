@@ -4,29 +4,51 @@ import {
   handleMouseUp,
 } from "./handler/movePostitHandler";
 
-const postitList = document.querySelectorAll(".postit");
 const postitStk = document.querySelector(".postit-stk");
+const app = document.querySelector(".main-section");
 
-postitStk?.addEventListener("dragstart", onDragStart);
+postitStk?.addEventListener("drop", onDragDrop);
 postitStk?.addEventListener("dragend", onDragEnd);
-postitStk?.addEventListener("drag", onDrag);
 
-postitList.forEach(function (postit: any, idx) {
-  let priority: any = postit.getAttribute("priority");
-  if (!priority) {
-    priority = idx + 1;
-    postit.setAttribute("priority", priority);
-  }
-  postit.style["z-index"] = priority;
+app?.addEventListener("dragover", onDrag);
+function drowPostit() {
+  const postitList = document.querySelectorAll(".postit");
+  postitList.forEach(function (postit: any, idx) {
+    let priority: any = postit.getAttribute("priority");
+    if (!priority) {
+      priority = idx + 1;
+      postit.setAttribute("priority", priority);
+    }
+    postit.style["z-index"] = priority;
 
-  postit.addEventListener("mousedown", handleMouseDown);
-});
+    postit.addEventListener("mousedown", handleMouseDown);
+  });
+}
 
-document.addEventListener("mousemove", handleMouseMove);
 document.addEventListener("mouseup", handleMouseUp);
 
-function onDragStart(event: any) {}
+function onDragDrop(event: any) {}
 
-function onDragEnd(event: any) {}
+function onDragEnd(e: any) {
+  console.log("!!!!!!!!!!!!!!!!!!", e);
+  const newPostit = document.createElement("div");
+  newPostit.classList.add("postit");
+  newPostit.innerHTML = `
+  <div class="postit-top-area" ></div>
+  <div
+  class="postit-contents-area"
+  >안녕하세요</div>
+  `;
+  app?.appendChild(newPostit);
+  const mouseX = e.clientX;
+  const mouseY = e.clientY;
 
-function onDrag(event: any) {}
+  newPostit.style.left = mouseX + "px";
+  newPostit.style.top = mouseY + "px";
+  drowPostit();
+}
+
+function onDrag(e: any) {
+  console.log(e.target);
+}
+drowPostit();
