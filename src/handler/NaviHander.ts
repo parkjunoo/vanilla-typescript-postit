@@ -1,6 +1,4 @@
 import { setStorage, getStorage } from "../helpers";
-
-
 interface PageInfo {
   page_id: number;
   page_name: string;
@@ -76,8 +74,10 @@ export default class NavHandler {
       .join("")}
     `;
 
-    const $tabs =
-      this.$NavPages.querySelectorAll<HTMLDivElement>(".tab-delete-button");
-    $tabs.forEach((e) => e.addEventListener("click", this.deletePage));
+    const $tabs = this.$NavPages.querySelectorAll<HTMLDivElement>(".tab");
+    $tabs.forEach((e) => {
+      // e.addEventListener("click", this.deletePage);
+      console.log(e.childNodes);
+    });
   }
 }
