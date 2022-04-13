@@ -54,7 +54,7 @@ const postit_page_1 = {
   todo_count: 1,
   ing_count: 1,
   complete_count: 1,
-};
+} as const;
 const postit_page_2 = {
   page_id: 2,
   page_name: "블로그 쓰기",
@@ -78,8 +78,8 @@ const navHandler = new NavHandler($nav);
 
 // const app = document.querySelector(".main-section");
 
-// postitStk?.addEventListener("drop", onDragDrop);
-// postitStk?.addEventListener("dragend", onDragEnd);
+// $postitStk?.addEventListener("drop", onDragDrop);
+// $postitStk?.addEventListener("dragend", onDragEnd);
 
 // app?.addEventListener("dragover", onDrag);
 // function drowPostit() {
