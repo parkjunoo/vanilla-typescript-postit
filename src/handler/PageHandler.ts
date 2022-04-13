@@ -1,8 +1,13 @@
 export default class PageHandler {
   $Page: HTMLDivElement;
-  $Nav: HTMLDivElement;
+  pageList: string[] = [];
+
   constructor($target: HTMLDivElement) {
     this.$Page = $target.querySelector(".main-section")!;
-    this.$Nav = $target.querySelector(".page-nav-tab")!;
+
+    const pageList = localStorage.getItem("page_list");
+    if (pageList) {
+      this.pageList = JSON.parse(pageList);
+    }
   }
 }

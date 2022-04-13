@@ -72,7 +72,7 @@ body {
 }
 .page-nav-tab {
   display: flex;
-  width: 90%;
+  width: auto;
   height: 4rem;
 }
 .size-button {
