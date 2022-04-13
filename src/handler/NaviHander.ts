@@ -1,16 +1,5 @@
 import { setStorage, getStorage } from "../helpers";
 
-interface DomMouseEvent<T extends EventTarget> extends MouseEvent {
-  readonly target: T;
-  readonly e: Event;
-}
-
-interface HandlerCallBack {
-  (e: Event): void;
-}
-interface UIElement {
-  addClickListener(onclick: (this: void, e: Event) => void): void;
-}
 
 interface PageInfo {
   page_id: number;
