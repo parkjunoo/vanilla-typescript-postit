@@ -52,6 +52,10 @@ export default class NavHandler {
     this.drowNav();
   }
 
+  clickPage(e: MouseEvent) {
+    console.log(e);
+  }
+
   deletePage(e: MouseEvent): void {
     const { id } = e.target as HTMLElement;
     const findIndex = this.navList.findIndex((e) => {
@@ -75,9 +79,11 @@ export default class NavHandler {
     `;
 
     const $tabs = this.$NavPages.querySelectorAll<HTMLDivElement>(".tab");
+
     $tabs.forEach((e) => {
-      // e.addEventListener("click", this.deletePage);
-      console.log(e.childNodes);
+      e.addEventListener("click", this.clickPage);
+      const $delete_button = e.childNodes[1] as HTMLDivElement;
+      $delete_button.addEventListener("click", this.deletePage);
     });
   }
 }
