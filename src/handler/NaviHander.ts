@@ -53,7 +53,8 @@ export default class NavHandler {
   }
 
   clickPage(e: MouseEvent) {
-    console.log(e);
+    const { id } = e.target as HTMLElement;
+    console.log(id);
   }
 
   deletePage(e: MouseEvent): void {
