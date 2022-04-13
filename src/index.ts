@@ -5,24 +5,24 @@ import NavHandler from "./handler/NaviHander";
 //*-----------------------------------------------------------------*//
 //? test 데이터 init
 // todo, ing, complete
-const pageList = [
-  {
-    page_id: 1,
-    page_name: "개발공부",
-    total_count: 3,
-    todo_count: 1,
-    ing_count: 1,
-    complete_count: 1,
-  },
-  {
-    page_id: 2,
-    page_name: "블로그 쓰기",
-    total_count: 3,
-    todo_count: 1,
-    ing_count: 1,
-    complete_count: 1,
-  },
-];
+// const pageList = [
+//   {
+//     page_id: 1,
+//     page_name: "개발공부",
+//     total_count: 3,
+//     todo_count: 1,
+//     ing_count: 1,
+//     complete_count: 1,
+//   },
+//   {
+//     page_id: 2,
+//     page_name: "블로그 쓰기",
+//     total_count: 3,
+//     todo_count: 1,
+//     ing_count: 1,
+//     complete_count: 1,
+//   },
+// ];
 const postit_list = [
   {
     postit_id: 1,
@@ -64,7 +64,6 @@ const postit_page_2 = {
   ing_count: 1,
   complete_count: 1,
 };
-localStorage.setItem("page_list", JSON.stringify(pageList));
 localStorage.setItem("postit_page_1", JSON.stringify(postit_page_1));
 localStorage.setItem("postit_page_2", JSON.stringify(postit_page_1));
 //*-----------------------------------------------------------------*//

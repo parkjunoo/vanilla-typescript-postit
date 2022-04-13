@@ -1,4 +1,5 @@
-interface PostIt {}
+import { setStorage, getStorage } from "../helpers";
+
 interface DomMouseEvent<T extends EventTarget> extends MouseEvent {
   readonly target: T;
   readonly e: Event;
@@ -44,9 +45,9 @@ export default class NavHandler {
   }
 
   fetchData() {
-    const pageData = localStorage.getItem("page_list");
+    const pageData = getStorage("page_list");
     if (pageData) {
-      this.navList = JSON.parse(pageData);
+      this.navList = pageData;
       this.last_page_id = this.navList[this.navList.length - 1].page_id;
     }
   }
@@ -60,15 +61,17 @@ export default class NavHandler {
       ing_count: 0,
       complete_count: 0,
     });
+    setStorage("page_list", this.navList);
     this.drowNav();
   }
 
   deletePage(e: MouseEvent): void {
     const { id } = e.target as HTMLElement;
-    const findIndex = this.navList.findIndex((e, idx) => {
+    const findIndex = this.navList.findIndex((e) => {
       return String(e.page_id) === id;
     });
     this.navList.splice(findIndex, 1);
+    setStorage("page_list", this.navList);
     this.drowNav();
   }
 
@@ -86,9 +89,6 @@ export default class NavHandler {
 
     const $tabs =
       this.$NavPages.querySelectorAll<HTMLDivElement>(".tab-delete-button");
-
-    $tabs.forEach((e: HTMLDivElement, idx: number) =>
-      e.addEventListener("click", this.deletePage)
-    );
+    $tabs.forEach((e) => e.addEventListener("click", this.deletePage));
   }
 }
