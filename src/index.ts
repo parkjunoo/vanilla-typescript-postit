@@ -1,6 +1,56 @@
 import PostItHandler from "./handler/PostItHandler";
+import PageHandler from "./handler/PageHandler";
 
+//*-----------------------------------------------------------------*//
+//? test 데이터 init
+// todo, ing, complete
+const pageList = [""];
+const postit_list = [
+  {
+    id: 1,
+    contents: "안녕하세요 포스트1111이에요.",
+    status: "ing",
+    pos_X: 100,
+    pos_Y: 200,
+  },
+  {
+    id: 2,
+    contents: "안녕하세요 포스트2222이에요.",
+    status: "todo",
+    pos_X: 300,
+    pos_Y: 200,
+  },
+  {
+    id: 3,
+    contents: "안녕하세요 포스트3333이에요.",
+    status: "complete",
+    pos_X: 500,
+    pos_Y: 200,
+  },
+];
+const postit_page_1 = {
+  page_name: "개발공부",
+  postit_list: postit_list,
+  total_count: 3,
+  todo_count: 1,
+  ing_count: 1,
+  complete_count: 1,
+};
+const postit_page_2 = {
+  page_name: "블로그 쓰기",
+  postit_list: postit_list,
+  total_count: 3,
+  todo_count: 1,
+  ing_count: 1,
+  complete_count: 1,
+};
+localStorage.setItem("postit_page_1", JSON.stringify(postit_page_1));
+localStorage.setItem("postit_page_2", JSON.stringify(postit_page_1));
+//*-----------------------------------------------------------------*//
+
+const $appPage: HTMLDivElement = document.querySelector(".app")!;
 const $postitStk: HTMLDivElement = document.querySelector(".postit-stk")!;
+const pageHandler = new PageHandler($appPage);
 const postItHandler = new PostItHandler($postitStk);
 // const app = document.querySelector(".main-section");
 

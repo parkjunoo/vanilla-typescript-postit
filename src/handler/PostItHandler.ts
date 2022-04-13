@@ -6,7 +6,6 @@ export default class PostItHandler {
   }
 
   drawPostits(): void {
-    console.log("!!!!!!!!!");
     // const postitList = document.querySelectorAll(".postit");
     // postitList.forEach(function (postit: HTMLDivElement, idx: number) {
     //   let priority: string = postit.getAttribute("priority");
