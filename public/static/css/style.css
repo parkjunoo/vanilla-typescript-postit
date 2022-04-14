@@ -32,11 +32,18 @@ body {
 }
 
 .postit {
+  position: absolute;
+  width: 18rem;
+  height: 18rem;
+  background-color: #fff6c1;
+  box-shadow: -6px -6px 5px rgba(228, 226, 226, 0),
+    3px 3px 5px rgba(228, 226, 226, 0.9);
+  border-radius: 10px;
+  border: 1px solid rgba(243, 235, 235, 0.9);
   padding: 10px 6px 6px 10px;
-  width: 200px;
-  height: 200px;
-  opacity: 70%;
-  color: green;
+  width: 180px;
+  opacity: 0.9;
+  height: 180px;
 }
 .postit-top-area {
   width: 100%;

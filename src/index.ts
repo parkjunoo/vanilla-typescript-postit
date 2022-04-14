@@ -2,6 +2,11 @@ import PostItHandler from "./handler/PostItHandler";
 import PageHandler from "./handler/PageHandler";
 import NavHandler from "./handler/NaviHander";
 
+import {
+  handleMouseDown,
+  handleMouseMove,
+  handleMouseUp,
+} from "./handler/movePostitHandler";
 //*-----------------------------------------------------------------*//
 //? test 데이터 init
 // todo, ing, complete
@@ -79,23 +84,23 @@ const navHandler = new NavHandler($nav);
 
 // $postitStk?.addEventListener("drop", onDragDrop);
 // $postitStk?.addEventListener("dragend", onDragEnd);
-
 // app?.addEventListener("dragover", onDrag);
-// function drowPostit() {
-//   const postitList = document.querySelectorAll(".postit");
-//   postitList.forEach(function (postit: any, idx) {
-//     let priority: any = postit.getAttribute("priority");
-//     if (!priority) {
-//       priority = idx + 1;
-//       postit.setAttribute("priority", priority);
-//     }
-//     postit.style["z-index"] = priority;
+function drowPostit() {
+  const postitList = document.querySelectorAll(".postit");
+  console.log(postitList, "!!!");
+  postitList.forEach(function (postit: any, idx) {
+    let priority: any = postit.getAttribute("priority");
+    if (!priority) {
+      priority = idx + 1;
+      postit.setAttribute("priority", priority);
+    }
+    postit.style["z-index"] = priority;
 
-//     postit.addEventListener("mousedown", handleMouseDown);
-//   });
-// }
+    postit.addEventListener("mousedown", handleMouseDown);
+  });
+}
 
-// document.addEventListener("mouseup", handleMouseUp);
+document.addEventListener("mouseup", handleMouseUp);
 
 // function onDragDrop(event: any) {}
 
@@ -121,4 +126,4 @@ const navHandler = new NavHandler($nav);
 // function onDrag(e: any) {
 //   console.log(e.target);
 // }
-// drowPostit();
+drowPostit();

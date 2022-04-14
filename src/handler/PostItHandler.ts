@@ -15,7 +15,7 @@ export default class PostItHandler {
     //   }
     //   postit.style.zIndex = priority;
     //   return;
-    //   // postit.addEventListener("mousedown", handleMouseDown);
+    //   postit.addEventListener("mousedown", handleMouseDown);
     // });
   }
 }

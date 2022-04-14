@@ -33,7 +33,8 @@ export default class NavHandler {
 
   fetchData() {
     const pageData = getStorage("page_list");
-    if (pageData) {
+    console.log("!!!!!!!!!!!!!! page", pageData);
+    if (pageData && pageData.length) {
       this.navList = pageData;
       this.last_page_id = this.navList[this.navList.length - 1].page_id;
     }
@@ -52,12 +53,13 @@ export default class NavHandler {
     this.drowNav();
   }
 
-  clickPage(e: MouseEvent) {
-    const { id } = e.target as HTMLElement;
+  clickPage(e: HTMLDivElement) {
+    const { id } = e;
     console.log(id);
   }
 
   deletePage(e: MouseEvent): void {
+    e.preventDefault();
     const { id } = e.target as HTMLElement;
     const findIndex = this.navList.findIndex((e) => {
       return String(e.page_id) === id;
@@ -79,12 +81,14 @@ export default class NavHandler {
       .join("")}
     `;
 
-    const $tabs = this.$NavPages.querySelectorAll<HTMLDivElement>(".tab");
+    const $tabs =
+      this.$NavPages.querySelectorAll<HTMLDivElement>(".tab-delete-button");
 
     $tabs.forEach((e) => {
-      e.addEventListener("click", this.clickPage);
-      const $delete_button = e.childNodes[1] as HTMLDivElement;
-      $delete_button.addEventListener("click", this.deletePage);
+      // e.addEventListener("click", this.clickPage);
+      // const $delete_button = e.childNodes[1] as HTMLDivElement;
+      e.addEventListener("click", this.deletePage);
+      e.parentElement!.addEventListener("click", () => this.clickPage(e));
     });
   }
 }
