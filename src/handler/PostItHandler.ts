@@ -1,21 +1,24 @@
+interface PostIt {
+  postit_id: number;
+  contents: string;
+  status: string;
+  pos_X: number;
+  pos_Y: number;
+}
+
 export default class PostItHandler {
   $postit_stk: HTMLDivElement;
-  constructor($target: HTMLDivElement) {
+  postit_list: PostIt[] = [];
+  constructor($target: HTMLDivElement, state: []) {
     this.$postit_stk = $target;
-    this.drawPostits();
+    this.postit_list = state;
+    this.render = this.render.bind(this);
   }
 
-  drawPostits(): void {
-    // const postitList = document.querySelectorAll(".postit");
-    // postitList.forEach(function (postit: HTMLDivElement, idx: number) {
-    //   let priority: string = postit.getAttribute("priority");
-    //   if (!priority) {
-    //     priority = idx + 1;
-    //     postit.setAttribute("priority", priority);
-    //   }
-    //   postit.style.zIndex = priority;
-    //   return;
-    //   postit.addEventListener("mousedown", handleMouseDown);
-    // });
+  setPostits(newState: PostIt[]) {
+    this.postit_list = newState;
+    this.render();
   }
+
+  render(): void {}
 }
