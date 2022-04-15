@@ -127,17 +127,17 @@ new App($App, initState);
 //   el: $App
 // });
 
-// // const $postitStk: HTMLDivElement = document.querySelector(".postit-stk")!;
-// // const $nav: HTMLDivElement = document.querySelector(".postit-page-nav")!;
-// // const pageHandler = new PageHandler($appPage);
-// // const postItHandler = new PostItHandler($postitStk);
-// // const navHandler = new NavHandler($nav);
+// const $postitStk: HTMLDivElement = document.querySelector(".postit-stk")!;
+// const $nav: HTMLDivElement = document.querySelector(".postit-page-nav")!;
+// const pageHandler = new PageHandler($appPage);
+// const postItHandler = new PostItHandler($postitStk);
+// const navHandler = new NavHandler($nav);
 
-// // const app = document.querySelector(".main-section");
+// const app = document.querySelector(".main-section");
 
-// // $postitStk?.addEventListener("drop", onDragDrop);
-// // $postitStk?.addEventListener("dragend", onDragEnd);
-// // app?.addEventListener("dragover", onDrag);
+// $postitStk?.addEventListener("drop", onDragDrop);
+// $postitStk?.addEventListener("dragend", onDragEnd);
+// app?.addEventListener("dragover", onDrag);
 // function drowPostit() {
 //   const postitList = document.querySelectorAll(".postit");
 //   console.log(postitList, "!!!");
@@ -155,28 +155,28 @@ new App($App, initState);
 
 // document.addEventListener("mouseup", handleMouseUp);
 
-// // function onDragDrop(event: any) {}
+// function onDragDrop(event: any) {}
 
-// // function onDragEnd(e: any) {
-// //   console.log("!!!!!!!!!!!!!!!!!!", e);
-// //   const newPostit = document.createElement("div");
-// //   newPostit.classList.add("postit");
-// //   newPostit.innerHTML = `
-// //   <div class="postit-top-area" ></div>
-// //   <div
-// //   class="postit-contents-area"
-// //   >안녕하세요</div>
-// //   `;
-// //   app?.appendChild(newPostit);
-// //   const mouseX = e.clientX;
-// //   const mouseY = e.clientY;
+// function onDragEnd(e: any) {
+//   console.log("!!!!!!!!!!!!!!!!!!", e);
+//   const newPostit = document.createElement("div");
+//   newPostit.classList.add("postit");
+//   newPostit.innerHTML = `
+//   <div class="postit-top-area" ></div>
+//   <div
+//   class="postit-contents-area"
+//   >안녕하세요</div>
+//   `;
+//   app?.appendChild(newPostit);
+//   const mouseX = e.clientX;
+//   const mouseY = e.clientY;
 
-// //   newPostit.style.left = mouseX + "px";
-// //   newPostit.style.top = mouseY + "px";
-// //   drowPostit();
-// // }
+//   newPostit.style.left = mouseX + "px";
+//   newPostit.style.top = mouseY + "px";
+//   drowPostit();
+// }
 
-// // function onDrag(e: any) {
-// //   console.log(e.target);
-// // }
+// function onDrag(e: any) {
+//   console.log(e.target);
+// }
 // drowPostit();

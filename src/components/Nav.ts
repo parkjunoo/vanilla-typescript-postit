@@ -12,7 +12,6 @@ interface initState {
   lastPageId?: number;
   selectedPageId?: number;
 }
-
 interface props {
   addNewPage: () => void;
   deletePage: (id: number) => void;
@@ -41,11 +40,11 @@ export default class Nav {
   }
 
   render(): void {
-    const { pageList } = this.state;
+    const { pageList, selectedPageId } = this.state;
     this.$NavContainer.innerHTML = `
     ${pageList!
       .map((e, idx) => {
-        return `<div class='tab'>
+        return `<div class='tab ${selectedPageId === e.id ? "selected" : ""}'>
         ${e.page_name}
         <div class="tab-delete-button" id="${e.id}">🗑</div>
         </div>`;

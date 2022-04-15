@@ -1,10 +1,3 @@
-interface PostIt {
-  postit_id: number;
-  contents: string;
-  status: string;
-  pos_X: number;
-  pos_Y: number;
-}
 interface PageListItem {
   id: number;
   page_name: string;
@@ -20,16 +13,16 @@ interface initState {
   selectedPageId?: number;
 }
 interface props {
-  addNewPage: () => void;
-  deletePage: (id: number) => void;
+  addNewPage?: () => void;
+  deletePage?: (id: number) => void;
 }
-export default class Postit {
-  $Postit: HTMLDivElement;
+export default class Page {
+  $Page: HTMLDivElement;
   state: initState;
   props: props;
 
   constructor($el: HTMLDivElement, initState: initState, props: props) {
-    this.$Postit = $el;
+    this.$Page = $el;
     this.state = initState;
     this.props = props;
     this.setState(initState);

@@ -1,4 +1,5 @@
 import Nav from "./components/Nav";
+import Page from "./components/Page";
 import { STORAGE_KEYS } from "./common/constant";
 import { setStorage, getStorage } from "./helpers";
 
@@ -27,6 +28,7 @@ export default class App {
   constructor($el: HTMLElement, initState: initState) {
     this.$App = $el;
     this.state = initState;
+    this.HeaderComponent = this.$App.querySelector(".postit-header");
     this.NavComponent = new Nav(
       this.$App.querySelector<HTMLDivElement>(".postit-page-nav")!,
       this.state,
@@ -35,9 +37,14 @@ export default class App {
         deletePage: this.deletePage,
       }
     );
-    this.HeaderComponent = this.$App.querySelector(".postit-header");
-    this.BodyComponent = this.$App.querySelector(".postit-body-page");
+    this.BodyComponent = new Page(
+      this.$App.querySelector(".postit-body-page")!,
+      this.state,
+      {}
+    );
   }
+
+  //? -------------------------nav----------------------------- ?//
 
   addNewPage = () => {
     let { pageList, maxPageId } = this.state;
@@ -55,6 +62,7 @@ export default class App {
       ing_count: 0,
       complete_count: 0,
     });
+    this.state.selectedPageId = this.state.maxPageId!;
     setStorage(STORAGE_KEYS.PAGE_LIST, pageList!);
     this.NavComponent.setState(this.state);
   };
@@ -68,4 +76,25 @@ export default class App {
     setStorage(STORAGE_KEYS.PAGE_LIST, pageList!);
     this.NavComponent.setState(this.state);
   };
+
+  //? ----------------------------page------------------------- ?//
+
+  
+
+  
+
+  //   drowPostit() {
+  //     const postitList = document.querySelectorAll(".postit");
+  //     console.log(postitList, "!!!");
+  //     postitList.forEach(function (postit: any, idx) {
+  //       let priority: any = postit.getAttribute("priority");
+  //       if (!priority) {
+  //         priority = idx + 1;
+  //         postit.setAttribute("priority", priority);
+  //       }
+  //       postit.style["z-index"] = priority;
+
+  //       postit.addEventListener("mousedown", handleMouseDown);
+  //     });
+  //   }
 }
