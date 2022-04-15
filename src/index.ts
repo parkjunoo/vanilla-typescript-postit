@@ -18,6 +18,7 @@ interface initState {
   pageList?: PageListItem[];
   lastPageId?: number;
   selectedPageId?: number;
+  maxPageId?: number;
 }
 
 const $App: HTMLElement = document.querySelector(".app")!;
@@ -41,8 +42,13 @@ const initState: initState = {};
   initState["pageList"] = pageList;
   initState["lastPageId"] = pageList[pageList.length - 1].id;
   initState["selectedPageId"] = pageList[pageList.length - 1].id;
+  initState["maxPageId"] = Math.max.apply(
+    Math,
+    pageList.map(function (page: PageListItem) {
+      return page.id;
+    })
+  );
 })();
-
 new App($App, initState);
 
 // import {

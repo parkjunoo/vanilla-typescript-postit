@@ -1,4 +1,7 @@
 import Nav from "./components/Nav";
+import { STORAGE_KEYS } from "./common/constant";
+import { setStorage, getStorage } from "./helpers";
+
 interface PageListItem {
   id: number;
   page_name: string;
@@ -12,6 +15,7 @@ interface initState {
   pageList?: PageListItem[];
   lastPageId?: number;
   selectedPageId?: number;
+  maxPageId?: number;
 }
 export default class App {
   $App: HTMLElement;
@@ -23,13 +27,31 @@ export default class App {
   constructor($el: HTMLElement, initState: initState) {
     this.$App = $el;
     this.state = initState;
-    this.HeaderComponent = new Nav(
-      this.$App.querySelector<HTMLDivElement>(".postit-header")!,
-      this.state
+    this.NavComponent = new Nav(
+      this.$App.querySelector<HTMLDivElement>(".page-nav-tab")!,
+      this.state,
+      {
+        addNewPage: this.addNewPage,
+      }
     );
-    this.NavComponent = this.$App.querySelector(".postit-page-nav");
+    this.HeaderComponent = this.$App.querySelector(".postit-header");
     this.BodyComponent = this.$App.querySelector(".postit-body-page");
   }
 
-  render() {}
+  addNewPage = () => {
+    let { pageList, maxPageId } = this.state;
+    pageList!.push({
+      id: (() => {
+        maxPageId!++;
+        return maxPageId!;
+      })(),
+      page_name: "untitled",
+      total_count: 0,
+      todo_count: 0,
+      ing_count: 0,
+      complete_count: 0,
+    });
+    setStorage(STORAGE_KEYS.PAGE_LIST, pageList!);
+    this.NavComponent.setState(this.state);
+  };
 }

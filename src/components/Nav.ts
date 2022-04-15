@@ -12,16 +12,23 @@ interface initState {
   lastPageId?: number;
   selectedPageId?: number;
 }
+
+interface props {
+  addNewPage: () => void;
+}
 export default class Nav {
   $Nav: HTMLDivElement;
   state: initState;
-  constructor($el: HTMLDivElement, initState: initState) {
+  props: props;
+  constructor($el: HTMLDivElement, initState: initState, props: props) {
     this.$Nav = $el;
     this.state = initState;
-    this.setPostits(initState);
+    this.props = props;
+    this.setState(initState);
+    console.log(this.props);
   }
 
-  setPostits(newState: initState) {
+  setState(newState: initState) {
     this.state = newState;
     this.render();
   }
@@ -38,5 +45,12 @@ export default class Nav {
       })
       .join("")}
     `;
+
+    const $tabs = this.$Nav.querySelectorAll<HTMLDivElement>(".tab");
+    $tabs.forEach((e) => {
+      e.addEventListener("click", this.props.addNewPage);
+      // const $delete_button = e.childNodes[1] as HTMLDivElement;
+      // e.parentElement!.addEventListener("click", () => this.clickPage(e));
+    });
   }
 }
