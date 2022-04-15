@@ -103,7 +103,6 @@ export default class Page {
 
   render(): void {
     this.$PostItBody.innerHTML = `${this.postitList!.map((e, idx) => {
-      console.log(e);
       return `
       <div class='postit' style="left: ${e.pos_X}px; top: ${e.pos_Y}px;">
         <div class="postit-top-area"></div>
