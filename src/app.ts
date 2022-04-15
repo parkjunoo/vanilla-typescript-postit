@@ -1,5 +1,6 @@
 import Nav from "./components/Nav";
 import Page from "./components/Page";
+import Postit from "./components/PostIt";
 import { STORAGE_KEYS } from "./common/constant";
 import { setStorage, getStorage } from "./helpers";
 
@@ -17,7 +18,9 @@ interface initState {
   lastPageId?: number;
   selectedPageId?: number;
   maxPageId?: number;
+  postitList?: Postit[];
 }
+
 export default class App {
   $App: HTMLElement;
   state: initState;

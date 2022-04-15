@@ -9,12 +9,17 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
-.main-section {
+
+.app {
+  width: 100vw;
+  height: 100vh;
+}
+.postit-body-page {
   width: 100%;
   height: 100%;
   padding: 20px;
+  background-color: bisque;
 }
-
 .header {
   position: relative;
   width: 100%;

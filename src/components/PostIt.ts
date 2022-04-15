@@ -1,7 +1,7 @@
 interface PostIt {
-  postit_id: number;
-  contents: string;
-  status: string;
+  postit_id?: number;
+  contents?: string;
+  status?: string;
   pos_X: number;
   pos_Y: number;
 }
@@ -25,9 +25,9 @@ export default class Postit {
   pos_X: number;
   pos_Y: number;
   constructor({ postit_id, contents, status, pos_X, pos_Y }: PostIt) {
-    this.postit_id = postit_id;
-    this.contents = contents;
-    this.status = status;
+    this.postit_id = postit_id || 0;
+    this.contents = contents || "";
+    this.status = status || "todo";
     this.pos_X = pos_X;
     this.pos_Y = pos_Y;
   }
