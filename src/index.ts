@@ -2,31 +2,6 @@ import App from "./app";
 import { setStorage, getStorage } from "./helpers";
 import { STORAGE_KEYS } from "./common/constant";
 
-const postit_list = [
-  {
-    postit_id: 1,
-    contents: "안녕하세요 포스트1111이에요.",
-    status: "ing",
-    pos_X: 100,
-    pos_Y: 200,
-  },
-  {
-    postit_id: 2,
-    contents: "안녕하세요 포스트2222이에요.",
-    status: "todo",
-    pos_X: 300,
-    pos_Y: 200,
-  },
-  {
-    postit_id: 3,
-    contents: "안녕하세요 포스트3333이에요.",
-    status: "complete",
-    pos_X: 500,
-    pos_Y: 200,
-  },
-];
-
-localStorage.setItem("postit_page_1", JSON.stringify(postit_list));
 interface PageListItem {
   id: number;
   page_name: string;

@@ -57,6 +57,9 @@ export function handleMouseMove(e: MouseEvent) {
 }
 
 export function handleMouseUp(e: MouseEvent) {
+  const target = e.target as HTMLDivElement;
+  const postitId = target.parentElement!.id;
+  
   document.removeEventListener("mousemove", handleMouseMove);
   e.preventDefault();
   const el: HTMLDivElement | null = document.querySelector(".postit.hold");

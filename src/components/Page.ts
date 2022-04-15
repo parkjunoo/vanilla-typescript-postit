@@ -31,6 +31,7 @@ export default class Page {
   state: initState;
   props: props;
   postitList: PostIt[] = [];
+  postitLastId: number = 1;
 
   constructor($el: HTMLDivElement, initState: initState, props: props) {
     this.$Page = $el;
@@ -38,6 +39,7 @@ export default class Page {
     this.props = props;
     this.onDragEnd = this.onDragEnd.bind(this);
     this.addNewPostIt = this.addNewPostIt.bind(this);
+    this.handleMouseUp = this.handleMouseUp.bind(this);
 
     this.$PostItContainer = this.$Page.querySelector(".postit-container")!;
     this.$PostItContainer.addEventListener("dragend", this.addNewPostIt);
@@ -59,6 +61,8 @@ export default class Page {
     }
 
     this.postitList = postits.map((post: PostIt) => {
+      if (post.postit_id > this.postitLastId)
+        this.postitLastId = post.postit_id;
       return new PostIt({
         postit_id: post.postit_id,
         status: post.status,
@@ -79,8 +83,15 @@ export default class Page {
   addNewPostIt(e: DragEvent) {
     const mouseX = e.clientX;
     const mouseY = e.clientY;
-    const newPostit = new PostIt({ pos_X: mouseX - 90, pos_Y: mouseY - 90 });
-    this.postitList.push(newPostit);
+    const newPostit = new PostIt({
+      postit_id: (() => {
+        this.postitLastId += 1;
+        return this.postitLastId;
+      })(),
+      pos_X: mouseX - 90,
+      pos_Y: mouseY - 90,
+    });
+    this.postitLastId = this.postitList.push(newPostit);
     setStorage(
       `${STORAGE_KEYS.POSTIT_PAGE}_${this.state.selectedPageId}`,
       this.postitList
@@ -109,14 +120,14 @@ export default class Page {
   render(): void {
     this.$PostItBody.innerHTML = `${this.postitList!.map((e, idx) => {
       return `
-      <div class='postit' style="left: ${e.pos_X}px; top: ${e.pos_Y}px;">
+      <div class='postit' id="${e.postit_id}" style="left: ${e.pos_X}px; top: ${e.pos_Y}px;">
         <div class="postit-top-area"></div>
         <div class="postit-contents-area">안녕하세요</div>
       </div>`;
     }).join("")}
     `;
     this.drowPostit();
-    document.addEventListener("mouseup", handleMouseUp);
+    document.addEventListener("mouseup", this.handleMouseUp);
   }
 
   drowPostit() {
@@ -131,5 +142,26 @@ export default class Page {
 
       postit.addEventListener("mousedown", handleMouseDown);
     });
+  }
+
+  handleMouseUp(e: MouseEvent) {
+    const target = e.target as HTMLDivElement;
+    const { id, style } = target.parentElement!;
+
+    const postit = this.postitList.find((e) => e.postit_id === Number(id));
+    postit!.pos_X = parseInt(style.left);
+    postit!.pos_Y = parseInt(style.top);
+    setStorage(
+      `${STORAGE_KEYS.POSTIT_PAGE}_${this.state.selectedPageId}`,
+      this.postitList
+    );
+    document.removeEventListener("mousemove", handleMouseMove);
+    e.preventDefault();
+    const el: HTMLDivElement | null = document.querySelector(".postit.hold");
+    if (el) {
+      el.removeAttribute("gap-x");
+      el.removeAttribute("gap-y");
+      el.classList.remove("hold");
+    }
   }
 }
