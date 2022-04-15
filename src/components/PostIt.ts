@@ -13,32 +13,29 @@ interface PageListItem {
   ing_count: number;
   complete_count: number;
 }
-interface initState {
-  //   [key: string]: number | string | object | [];
-  pageList?: PageListItem[];
-  lastPageId?: number;
-  selectedPageId?: number;
-}
+interface PostitState {}
 interface props {
   addNewPage: () => void;
   deletePage: (id: number) => void;
 }
 export default class Postit {
-  $Postit: HTMLDivElement;
-  state: initState;
-  props: props;
-
-  constructor($el: HTMLDivElement, initState: initState, props: props) {
-    this.$Postit = $el;
-    this.state = initState;
-    this.props = props;
-    this.setState(initState);
+  postit_id: number;
+  contents: string;
+  status: string;
+  pos_X: number;
+  pos_Y: number;
+  constructor({ postit_id, contents, status, pos_X, pos_Y }: PostIt) {
+    this.postit_id = postit_id;
+    this.contents = contents;
+    this.status = status;
+    this.pos_X = pos_X;
+    this.pos_Y = pos_Y;
   }
 
-  setState(newState: initState) {
-    this.state = newState;
+  setState() {
     this.render();
   }
+  getState() {}
 
   render(): void {}
 }

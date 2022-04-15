@@ -5,6 +5,31 @@ import App from "./app";
 import { setStorage, getStorage } from "./helpers";
 import { STORAGE_KEYS } from "./common/constant";
 
+const postit_list = [
+  {
+    postit_id: 1,
+    contents: "안녕하세요 포스트1111이에요.",
+    status: "ing",
+    pos_X: 100,
+    pos_Y: 200,
+  },
+  {
+    postit_id: 2,
+    contents: "안녕하세요 포스트2222이에요.",
+    status: "todo",
+    pos_X: 300,
+    pos_Y: 200,
+  },
+  {
+    postit_id: 3,
+    contents: "안녕하세요 포스트3333이에요.",
+    status: "complete",
+    pos_X: 500,
+    pos_Y: 200,
+  },
+];
+
+localStorage.setItem("postit_page_1", JSON.stringify(postit_list));
 interface PageListItem {
   id: number;
   page_name: string;
@@ -77,48 +102,7 @@ new App($App, initState);
 // //     complete_count: 1,
 // //   },
 // // ];
-// const postit_list = [
-//   {
-//     postit_id: 1,
-//     contents: "안녕하세요 포스트1111이에요.",
-//     status: "ing",
-//     pos_X: 100,
-//     pos_Y: 200,
-//   },
-//   {
-//     postit_id: 2,
-//     contents: "안녕하세요 포스트2222이에요.",
-//     status: "todo",
-//     pos_X: 300,
-//     pos_Y: 200,
-//   },
-//   {
-//     postit_id: 3,
-//     contents: "안녕하세요 포스트3333이에요.",
-//     status: "complete",
-//     pos_X: 500,
-//     pos_Y: 200,
-//   },
-// ];
-// const postit_page_1 = {
-//   page_id: 1,
-//   page_name: "개발공부",
-//   postit_list: postit_list,
-//   total_count: 3,
-//   todo_count: 1,
-//   ing_count: 1,
-//   complete_count: 1,
-// } as const;
-// const postit_page_2 = {
-//   page_id: 2,
-//   page_name: "블로그 쓰기",
-//   postit_list: postit_list,
-//   total_count: 3,
-//   todo_count: 1,
-//   ing_count: 1,
-//   complete_count: 1,
-// };
-// localStorage.setItem("postit_page_1", JSON.stringify(postit_page_1));
+
 // localStorage.setItem("postit_page_2", JSON.stringify(postit_page_1));
 // //*-----------------------------------------------------------------*//
 

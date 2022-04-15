@@ -15,6 +15,7 @@ interface initState {
 interface props {
   addNewPage: () => void;
   deletePage: (id: number) => void;
+  clickPageTab: (id: number) => void;
 }
 export default class Nav {
   $Nav: HTMLDivElement;
@@ -53,10 +54,13 @@ export default class Nav {
     `;
 
     const $tabs = this.$Nav.querySelectorAll<HTMLDivElement>(".tab");
-    $tabs.forEach((e) => {
+    $tabs.forEach((e: HTMLDivElement) => {
       const $delete_button = e.childNodes[1] as HTMLDivElement;
       $delete_button.addEventListener("click", () =>
         this.props.deletePage(Number($delete_button.id))
+      );
+      e.addEventListener("click", () =>
+        this.props.clickPageTab(Number($delete_button.id))
       );
     });
   }

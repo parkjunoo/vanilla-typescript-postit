@@ -35,6 +35,7 @@ export default class App {
       {
         addNewPage: this.addNewPage,
         deletePage: this.deletePage,
+        clickPageTab: this.clickPageTab,
       }
     );
     this.BodyComponent = new Page(
@@ -77,15 +78,19 @@ export default class App {
     this.NavComponent.setState(this.state);
   };
 
+  clickPageTab = (tab_id: number) => {
+    const newState = {
+      ...this.state,
+      selectedPageId: tab_id,
+    };
+    this.NavComponent.setState(newState);
+    this.BodyComponent.setState(newState);
+  };
+
   //? ----------------------------page------------------------- ?//
-
-  
-
-  
 
   //   drowPostit() {
   //     const postitList = document.querySelectorAll(".postit");
-  //     console.log(postitList, "!!!");
   //     postitList.forEach(function (postit: any, idx) {
   //       let priority: any = postit.getAttribute("priority");
   //       if (!priority) {
