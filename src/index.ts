@@ -5,25 +5,45 @@ import App from "./app";
 import { setStorage, getStorage } from "./helpers";
 import { STORAGE_KEYS } from "./common/constant";
 
-const $App: HTMLElement = document.querySelector(".app")!;
-let pageList = getStorage(STORAGE_KEYS.PAGE_LIST);
-if (!pageList) {
-  pageList = [
-    {
-      id: 1,
-      page_name: "untitled",
-      total_count: 0,
-      todo_count: 0,
-      ing_count: 0,
-      complete_count: 0,
-    },
-  ];
-  setStorage(STORAGE_KEYS.PAGE_LIST, pageList);
+interface PageListItem {
+  id: number;
+  page_name: string;
+  total_count: number;
+  todo_count: number;
+  ing_count: number;
+  complete_count: number;
 }
-const lastPageId = pageList[pageList.length - 1].id;
-const selectedPageId = pageList[pageList.length - 1].id;
+interface initState {
+  //   [key: string]: number | string | object | [];
+  pageList?: PageListItem[];
+  lastPageId?: number;
+  selectedPageId?: number;
+}
 
-new App($App, { pageList, lastPageId, selectedPageId });
+const $App: HTMLElement = document.querySelector(".app")!;
+const initState: initState = {};
+
+(function fetchInitData() {
+  let pageList = getStorage(STORAGE_KEYS.PAGE_LIST);
+  if (!pageList) {
+    pageList = [
+      {
+        id: 1,
+        page_name: "untitled",
+        total_count: 0,
+        todo_count: 0,
+        ing_count: 0,
+        complete_count: 0,
+      },
+    ];
+    setStorage(STORAGE_KEYS.PAGE_LIST, pageList);
+  }
+  initState["pageList"] = pageList;
+  initState["lastPageId"] = pageList[pageList.length - 1].id;
+  initState["selectedPageId"] = pageList[pageList.length - 1].id;
+})();
+
+new App($App, initState);
 
 // import {
 //   handleMouseDown,
