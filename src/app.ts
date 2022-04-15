@@ -28,10 +28,11 @@ export default class App {
     this.$App = $el;
     this.state = initState;
     this.NavComponent = new Nav(
-      this.$App.querySelector<HTMLDivElement>(".page-nav-tab")!,
+      this.$App.querySelector<HTMLDivElement>(".postit-page-nav")!,
       this.state,
       {
         addNewPage: this.addNewPage,
+        deletePage: this.deletePage,
       }
     );
     this.HeaderComponent = this.$App.querySelector(".postit-header");
@@ -42,8 +43,11 @@ export default class App {
     let { pageList, maxPageId } = this.state;
     pageList!.push({
       id: (() => {
-        maxPageId!++;
-        return maxPageId!;
+        this.state = {
+          ...this.state,
+          maxPageId: maxPageId! + 1,
+        };
+        return this.state.maxPageId!;
       })(),
       page_name: "untitled",
       total_count: 0,
@@ -51,6 +55,17 @@ export default class App {
       ing_count: 0,
       complete_count: 0,
     });
+    console.log("!!!!!!", this.state.maxPageId);
+    setStorage(STORAGE_KEYS.PAGE_LIST, pageList!);
+    this.NavComponent.setState(this.state);
+  };
+
+  deletePage = (id: number) => {
+    let { pageList } = this.state;
+    const findIndex = pageList!.findIndex((e) => {
+      return e.id === id;
+    });
+    pageList!.splice(findIndex, 1);
     setStorage(STORAGE_KEYS.PAGE_LIST, pageList!);
     this.NavComponent.setState(this.state);
   };
