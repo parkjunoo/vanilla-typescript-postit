@@ -91,18 +91,4 @@ export default class App {
   };
 
   //? ----------------------------page------------------------- ?//
-
-  //   drowPostit() {
-  //     const postitList = document.querySelectorAll(".postit");
-  //     postitList.forEach(function (postit: any, idx) {
-  //       let priority: any = postit.getAttribute("priority");
-  //       if (!priority) {
-  //         priority = idx + 1;
-  //         postit.setAttribute("priority", priority);
-  //       }
-  //       postit.style["z-index"] = priority;
-
-  //       postit.addEventListener("mousedown", handleMouseDown);
-  //     });
-  //   }
 }

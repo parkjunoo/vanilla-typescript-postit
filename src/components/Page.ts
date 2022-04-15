@@ -1,5 +1,10 @@
 import { STORAGE_KEYS } from "../common/constant";
 import { setStorage, getStorage } from "../helpers";
+import {
+  handleMouseDown,
+  handleMouseMove,
+  handleMouseUp,
+} from "../handler/movePostitHandler";
 import PostIt from "./PostIt";
 
 interface PageListItem {
@@ -110,5 +115,21 @@ export default class Page {
       </div>`;
     }).join("")}
     `;
+    this.drowPostit();
+    document.addEventListener("mouseup", handleMouseUp);
+  }
+
+  drowPostit() {
+    const postitList = document.querySelectorAll(".postit");
+    postitList.forEach(function (postit: any, idx) {
+      let priority: any = postit.getAttribute("priority");
+      if (!priority) {
+        priority = idx + 1;
+        postit.setAttribute("priority", priority);
+      }
+      postit.style["z-index"] = priority;
+
+      postit.addEventListener("mousedown", handleMouseDown);
+    });
   }
 }
