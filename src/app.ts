@@ -55,7 +55,6 @@ export default class App {
       ing_count: 0,
       complete_count: 0,
     });
-    console.log("!!!!!!", this.state.maxPageId);
     setStorage(STORAGE_KEYS.PAGE_LIST, pageList!);
     this.NavComponent.setState(this.state);
   };

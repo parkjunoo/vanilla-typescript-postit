@@ -33,7 +33,6 @@ export default class NavHandler {
 
   fetchData() {
     const pageData = getStorage("page_list");
-    console.log("!!!!!!!!!!!!!! page", pageData);
     if (pageData && pageData.length) {
       this.navList = pageData;
       this.last_page_id = this.navList[this.navList.length - 1].page_id;
@@ -55,7 +54,6 @@ export default class NavHandler {
 
   clickPage(e: HTMLDivElement) {
     const { id } = e;
-    console.log(id);
   }
 
   deletePage(e: MouseEvent): void {
