@@ -37,7 +37,6 @@ export default class Page {
     this.$Page = $el;
     this.state = initState;
     this.props = props;
-    this.onDragEnd = this.onDragEnd.bind(this);
     this.addNewPostIt = this.addNewPostIt.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
 
@@ -100,24 +99,6 @@ export default class Page {
       this.postitList
     );
     this.setState(this.state);
-  }
-
-  onDragEnd(e: any) {
-    const newPostit = document.createElement("div");
-    newPostit.classList.add("postit");
-    newPostit.innerHTML = `
-      <div class="postit-top-area" ></div>
-      <div
-      class="postit-contents-area"
-      >안녕하세요</div>
-      `;
-    this.$Page.appendChild(newPostit);
-
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
-
-    newPostit.style.left = mouseX - 90 + "px";
-    newPostit.style.top = mouseY - 90 + "px";
   }
 
   render(): void {

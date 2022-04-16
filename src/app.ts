@@ -2,7 +2,7 @@ import Nav from "./components/Nav";
 import Page from "./components/Page";
 import Postit from "./components/PostIt";
 import { STORAGE_KEYS } from "./common/constant";
-import { setStorage, getStorage } from "./helpers";
+import { setStorage, getStorage, removeStorage } from "./helpers";
 
 interface PageListItem {
   id: number;
@@ -77,8 +77,10 @@ export default class App {
     const findIndex = pageList!.findIndex((e) => {
       return e.id === id;
     });
-    pageList!.splice(findIndex, 1);
+    const [target] = pageList!.splice(findIndex, 1);
     setStorage(STORAGE_KEYS.PAGE_LIST, pageList!);
+    removeStorage(`${STORAGE_KEYS.POSTIT_PAGE}_${target.id}`);
+
     this.NavComponent.setState(this.state);
   };
 
