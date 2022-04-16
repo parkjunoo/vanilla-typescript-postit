@@ -41,11 +41,15 @@ export default class Page {
     this.handleMouseUp = this.handleMouseUp.bind(this);
 
     this.$PostItContainer = this.$Page.querySelector(".postit-container")!;
-    this.$PostItContainer.addEventListener("dragend", this.addNewPostIt);
     this.$PostItBody = this.$Page.querySelector(".postit-body")!;
 
+    document.addEventListener("dragstart", (e: DragEvent) => {
+      e.dataTransfer!.setData("startX", `${e.clientX! - 22}`);
+      e.dataTransfer!.setData("startY", `${e.clientY! - 74}`);
+    });
+    
     document.addEventListener("dragover", (e) => e.preventDefault());
-    document.addEventListener("drop", (e) => e.preventDefault());
+    document.addEventListener("drop", this.addNewPostIt);
 
     const { selectedPageId } = this.state;
     this.fetchData(selectedPageId!);
@@ -85,13 +89,17 @@ export default class Page {
   addNewPostIt(e: DragEvent) {
     const mouseX = e.clientX;
     const mouseY = e.clientY;
+
+    const startX = Number(e.dataTransfer!.getData("startX"));
+    const startY = Number(e.dataTransfer!.getData("startY"));
+
     const newPostit = new PostIt({
       postit_id: (() => {
         this.postitLastId += 1;
         return this.postitLastId;
       })(),
-      pos_X: mouseX - 90,
-      pos_Y: mouseY - 90,
+      pos_X: mouseX - startX,
+      pos_Y: mouseY - startY,
     });
     this.postitLastId = this.postitList.push(newPostit);
     setStorage(
