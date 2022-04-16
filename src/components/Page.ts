@@ -130,12 +130,11 @@ export default class Page {
     }).join("")}
     `;
     this.drowPostit();
-    document.addEventListener("mouseup", this.handleMouseUp);
   }
 
   drowPostit() {
     const postitList = document.querySelectorAll(".postit");
-    postitList.forEach(function (postit: any, idx) {
+    postitList.forEach((postit: any, idx) => {
       let priority: any = postit.getAttribute("priority");
       if (!priority) {
         priority = idx + 1;
@@ -144,6 +143,7 @@ export default class Page {
       postit.style["z-index"] = priority;
 
       postit.addEventListener("mousedown", handleMouseDown);
+      postit.addEventListener("mouseup", this.handleMouseUp);
     });
   }
 

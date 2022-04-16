@@ -69,6 +69,7 @@ export default class App {
     this.state.selectedPageId = this.state.maxPageId!;
     setStorage(STORAGE_KEYS.PAGE_LIST, pageList!);
     this.NavComponent.setState(this.state);
+    this.BodyComponent.setState(this.state);
   };
 
   deletePage = (id: number) => {
