@@ -18,7 +18,7 @@ body {
   width: 100%;
   height: 100%;
   padding: 20px;
-  background-color: bisque;
+  background-color: rgb(247, 247, 247);
 }
 .header {
   position: relative;
@@ -47,7 +47,7 @@ body {
   border: 1px solid rgba(243, 235, 235, 0.9);
   padding: 10px 6px 6px 10px;
   width: 180px;
-  opacity: 0.9;
+  opacity: 0.8;
   height: 180px;
 }
 .postit-top-area {
