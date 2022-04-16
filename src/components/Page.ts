@@ -45,6 +45,9 @@ export default class Page {
     this.$PostItContainer.addEventListener("dragend", this.addNewPostIt);
     this.$PostItBody = this.$Page.querySelector(".postit-body")!;
 
+    document.addEventListener("dragover", (e) => e.preventDefault());
+    document.addEventListener("drop", (e) => e.preventDefault());
+
     const { selectedPageId } = this.state;
     this.fetchData(selectedPageId!);
     this.setState(initState);
