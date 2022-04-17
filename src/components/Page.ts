@@ -47,7 +47,6 @@ export default class Page {
       e.dataTransfer!.setData("startX", `${e.clientX! - 22}`);
       e.dataTransfer!.setData("startY", `${e.clientY! - 74}`);
     });
-    
     document.addEventListener("dragover", (e) => e.preventDefault());
     document.addEventListener("drop", this.addNewPostIt);
 
@@ -69,6 +68,7 @@ export default class Page {
     this.postitList = postits.map((post: PostIt) => {
       if (post.postit_id > this.postitLastId)
         this.postitLastId = post.postit_id;
+
       return new PostIt({
         postit_id: post.postit_id,
         status: post.status,
@@ -81,8 +81,6 @@ export default class Page {
 
   setState(newState: initState) {
     this.state = newState;
-    const { selectedPageId } = this.state;
-    this.fetchData(selectedPageId!);
     this.render();
   }
 
@@ -110,14 +108,11 @@ export default class Page {
   }
 
   render(): void {
-    this.$PostItBody.innerHTML = `${this.postitList!.map((e, idx) => {
-      return `
-      <div class='postit' id="${e.postit_id}" style="left: ${e.pos_X}px; top: ${e.pos_Y}px;">
-        <div class="postit-top-area"></div>
-        <div class="postit-contents-area">안녕하세요</div>
-      </div>`;
-    }).join("")}
-    `;
+    this.fetchData(this.state.selectedPageId!);
+    this.$PostItBody.innerHTML = ``;
+    this.postitList!.forEach((e, idx) => {
+      this.$PostItBody.appendChild(e.$Postit);
+    });
     this.drowPostit();
   }
 
@@ -137,6 +132,7 @@ export default class Page {
   }
 
   handleMouseUp(e: MouseEvent) {
+    console.log("up");
     const target = e.target as HTMLDivElement;
     const { id, style } = target.parentElement!;
 

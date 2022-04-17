@@ -59,6 +59,11 @@ body {
   width: 100%;
   height: 90%;
 }
+.postit-contents-form {
+  width: 100%;
+  height: 90%;
+  resize: none;
+}
 .postit-container {
   width: 18rem;
   height: 18rem;
