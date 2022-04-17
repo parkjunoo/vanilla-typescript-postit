@@ -74,7 +74,6 @@ export default class App {
 
   deletePage = (id: number) => {
     let { pageList, selectedPageId } = this.state;
-    console.log(selectedPageId, id);
     const findIndex = pageList!.findIndex((e) => {
       return e.id === id;
     });

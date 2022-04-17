@@ -3,7 +3,6 @@ interface DomMouseEvent<T extends EventTarget> extends MouseEvent {
 }
 
 export function handleMouseDown(e: DomMouseEvent<HTMLElement>) {
-  console.log("@@@@");
   document.addEventListener("mousemove", handleMouseMove);
   const el = e.target.parentElement;
   const postitList = document.querySelectorAll(".postit");
