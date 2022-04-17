@@ -24,7 +24,7 @@ interface PostItState {
 }
 interface initState {
   //   [key: string]: number | string | object | [];
-  pageList?: PageListItem[];
+  pageList: PageListItem[];
   lastPageId?: number;
   selectedPageId?: number;
   postitList?: PostIt[];
@@ -47,6 +47,7 @@ export default class Page {
     this.addNewPostIt = this.addNewPostIt.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
     this.updatePostit = this.updatePostit.bind(this);
+    this.setState = this.setState.bind(this);
 
     this.$PostItContainer = this.$Page.querySelector(".postit-container")!;
     this.$PostItBody = this.$Page.querySelector(".postit-body")!;
@@ -94,6 +95,7 @@ export default class Page {
 
   setState(newState: initState) {
     this.state = newState;
+    this.fetchData(this.state.selectedPageId!);
     this.render();
   }
 

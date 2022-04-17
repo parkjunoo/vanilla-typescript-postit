@@ -15,19 +15,14 @@ interface PageListItem {
   ing_count: number;
   complete_count: number;
 }
-interface initState {
-  //   [key: string]: number | string | object | [];
-  pageList?: PageListItem[];
-  lastPageId?: number;
-  selectedPageId?: number;
-  postitList?: Postit[];
-}
+
 interface PostItProps {
   updatePostit: (postit_id: number) => void;
 }
 export default class Postit {
   $Postit: HTMLDivElement;
   $PostItContents: HTMLDivElement;
+  $PostItForm: HTMLTextAreaElement;
   state: PostItState;
   props: PostItProps;
   constructor(
@@ -54,6 +49,8 @@ export default class Postit {
     `;
 
     this.$PostItContents = this.$Postit.querySelector(".postit-contents-area")!;
+    this.$PostItForm = this.$Postit.querySelector(".postit-contents-form")!;
+    this.$PostItForm.value = contents;
 
     this.$Postit.addEventListener("dblclick", this.dbClickPostit);
     this.dbClickPostit = this.dbClickPostit.bind(this);

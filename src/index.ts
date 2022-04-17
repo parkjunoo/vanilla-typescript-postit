@@ -12,14 +12,16 @@ interface PageListItem {
 }
 interface initState {
   //   [key: string]: number | string | object | [];
-  pageList?: PageListItem[];
+  pageList: PageListItem[];
   lastPageId?: number;
   selectedPageId?: number;
   maxPageId?: number;
 }
 
 const $App: HTMLElement = document.querySelector(".app")!;
-const initState: initState = {};
+const initState: initState = {
+  pageList: [],
+};
 
 (function fetchInitData() {
   let pageList = getStorage(STORAGE_KEYS.PAGE_LIST);

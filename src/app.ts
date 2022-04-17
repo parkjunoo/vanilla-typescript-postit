@@ -13,8 +13,7 @@ interface PageListItem {
   complete_count: number;
 }
 interface initState {
-  //   [key: string]: number | string | object | [];
-  pageList?: PageListItem[];
+  pageList: PageListItem[];
   lastPageId?: number;
   selectedPageId?: number;
   maxPageId?: number;
@@ -52,15 +51,16 @@ export default class App {
 
   addNewPage = () => {
     let { pageList, maxPageId } = this.state;
+    const newIndex = (() => {
+      this.state = {
+        ...this.state,
+        maxPageId: maxPageId! + 1,
+      };
+      return this.state.maxPageId!;
+    })();
     pageList!.push({
-      id: (() => {
-        this.state = {
-          ...this.state,
-          maxPageId: maxPageId! + 1,
-        };
-        return this.state.maxPageId!;
-      })(),
-      page_name: "untitled",
+      id: newIndex,
+      page_name: `untitled_${newIndex}`,
       total_count: 0,
       todo_count: 0,
       ing_count: 0,
@@ -73,15 +73,25 @@ export default class App {
   };
 
   deletePage = (id: number) => {
-    let { pageList } = this.state;
+    let { pageList, selectedPageId } = this.state;
+    console.log(selectedPageId, id);
     const findIndex = pageList!.findIndex((e) => {
       return e.id === id;
     });
+    if (selectedPageId === id) {
+      if (pageList.length === 1) {
+        alert("마지막 페이지는 삭제할 수 없습니다.");
+        return;
+      }
+      this.state.selectedPageId = pageList[findIndex - 1].id;
+    }
+
     const [target] = pageList!.splice(findIndex, 1);
     setStorage(STORAGE_KEYS.PAGE_LIST, pageList!);
     removeStorage(`${STORAGE_KEYS.POSTIT_PAGE}_${target.id}`);
 
     this.NavComponent.setState(this.state);
+    this.BodyComponent.setState(this.state);
   };
 
   clickPageTab = (tab_id: number) => {
@@ -89,6 +99,7 @@ export default class App {
       ...this.state,
       selectedPageId: tab_id,
     };
+    this.state.selectedPageId = tab_id;
     this.NavComponent.setState(newState);
     this.BodyComponent.setState(newState);
   };

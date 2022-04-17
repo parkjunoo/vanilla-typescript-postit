@@ -8,7 +8,7 @@ interface PageListItem {
 }
 interface initState {
   //   [key: string]: number | string | object | [];
-  pageList?: PageListItem[];
+  pageList: PageListItem[];
   lastPageId?: number;
   selectedPageId?: number;
 }
@@ -56,12 +56,14 @@ export default class Nav {
     const $tabs = this.$Nav.querySelectorAll<HTMLDivElement>(".tab");
     $tabs.forEach((e: HTMLDivElement) => {
       const $delete_button = e.childNodes[1] as HTMLDivElement;
-      $delete_button.addEventListener("click", () =>
-        this.props.deletePage(Number($delete_button.id))
-      );
-      e.addEventListener("click", () =>
-        this.props.clickPageTab(Number($delete_button.id))
-      );
+      $delete_button.addEventListener("click", (e) => {
+        e.stopPropagation();
+        this.props.deletePage(Number($delete_button.id));
+      });
+      e.addEventListener("click", (e) => {
+        e.stopPropagation();
+        this.props.clickPageTab(Number($delete_button.id));
+      });
     });
   }
 }
