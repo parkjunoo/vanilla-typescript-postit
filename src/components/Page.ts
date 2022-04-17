@@ -15,6 +15,13 @@ interface PageListItem {
   ing_count: number;
   complete_count: number;
 }
+interface PostItState {
+  postit_id: number;
+  contents?: string;
+  status?: string;
+  pos_X: number;
+  pos_Y: number;
+}
 interface initState {
   //   [key: string]: number | string | object | [];
   pageList?: PageListItem[];
@@ -39,6 +46,7 @@ export default class Page {
     this.props = props;
     this.addNewPostIt = this.addNewPostIt.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
+    this.updatePostit = this.updatePostit.bind(this);
 
     this.$PostItContainer = this.$Page.querySelector(".postit-container")!;
     this.$PostItBody = this.$Page.querySelector(".postit-body")!;
@@ -66,16 +74,21 @@ export default class Page {
     }
 
     this.postitList = postits.map((post: PostIt) => {
-      if (post.postit_id > this.postitLastId)
-        this.postitLastId = post.postit_id;
+      if (post.state.postit_id > this.postitLastId)
+        this.postitLastId = post.state.postit_id;
 
-      return new PostIt({
-        postit_id: post.postit_id,
-        status: post.status,
-        contents: post.contents,
-        pos_X: post.pos_X,
-        pos_Y: post.pos_Y,
-      });
+      return new PostIt(
+        {
+          postit_id: post.state.postit_id,
+          status: post.state.status,
+          contents: post.state.contents,
+          pos_X: post.state.pos_X,
+          pos_Y: post.state.pos_Y,
+        },
+        {
+          updatePostit: this.updatePostit,
+        }
+      );
     });
   }
 
@@ -91,14 +104,19 @@ export default class Page {
     const startX = Number(e.dataTransfer!.getData("startX"));
     const startY = Number(e.dataTransfer!.getData("startY"));
 
-    const newPostit = new PostIt({
-      postit_id: (() => {
-        this.postitLastId += 1;
-        return this.postitLastId;
-      })(),
-      pos_X: mouseX - startX,
-      pos_Y: mouseY - startY,
-    });
+    const newPostit = new PostIt(
+      {
+        postit_id: (() => {
+          this.postitLastId += 1;
+          return this.postitLastId;
+        })(),
+        pos_X: mouseX - startX,
+        pos_Y: mouseY - startY,
+      },
+      {
+        updatePostit: this.updatePostit,
+      }
+    );
     this.postitLastId = this.postitList.push(newPostit);
     setStorage(
       `${STORAGE_KEYS.POSTIT_PAGE}_${this.state.selectedPageId}`,
@@ -108,7 +126,6 @@ export default class Page {
   }
 
   render(): void {
-    this.fetchData(this.state.selectedPageId!);
     this.$PostItBody.innerHTML = ``;
     this.postitList!.forEach((e, idx) => {
       this.$PostItBody.appendChild(e.$Postit);
@@ -131,14 +148,23 @@ export default class Page {
     });
   }
 
+  updatePostit(postid_id: number) {
+    console.log("!!!!", postid_id, this.postitList);
+    setStorage(
+      `${STORAGE_KEYS.POSTIT_PAGE}_${this.state.selectedPageId}`,
+      this.postitList
+    );
+  }
+
   handleMouseUp(e: MouseEvent) {
-    console.log("up");
     const target = e.target as HTMLDivElement;
     const { id, style } = target.parentElement!;
 
-    const postit = this.postitList.find((e) => e.postit_id === Number(id));
-    postit!.pos_X = parseInt(style.left);
-    postit!.pos_Y = parseInt(style.top);
+    const postit = this.postitList.find((e: PostIt) => {
+      return e.state.postit_id === Number(id);
+    });
+    postit!.state.pos_X = parseInt(style.left);
+    postit!.state.pos_Y = parseInt(style.top);
     setStorage(
       `${STORAGE_KEYS.POSTIT_PAGE}_${this.state.selectedPageId}`,
       this.postitList
