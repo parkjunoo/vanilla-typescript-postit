@@ -8,6 +8,9 @@ interface PostItState {
   pos_X: number;
   pos_Y: number;
 }
+interface BGColor {
+  [bs: string]: string;
+}
 
 interface PostItProps {
   updatePostit: (postit_id: number) => void;
@@ -71,7 +74,10 @@ export default class Postit {
 
     this.processToggle = new ProcessToggle(
       this.$Postit.querySelector(".process-toggle-button")!,
-      this.state.status
+      this.state.status,
+      {
+        setBgColor: this.setBgColor,
+      }
     );
   }
 
@@ -99,10 +105,15 @@ export default class Postit {
     this.props.updatePostit(this.state.postit_id);
   };
 
-  setBgColor = () => {
+  setBgColor = (process: number) => {
+    const bgList: BGColor = {
+      1: "#fff6c1",
+      2: "#94dbc5",
+      3: "#bdcfe4",
+    };
+    this.$Postit.style.backgroundColor = bgList[process];
+  };
 
-  }
-  
   setState() {
     this.render();
   }
