@@ -88,6 +88,7 @@ export default class Page {
         },
         {
           updatePostit: this.updatePostit,
+          deletePostit: this.deletePostit,
         }
       );
     });
@@ -117,6 +118,7 @@ export default class Page {
       },
       {
         updatePostit: this.updatePostit,
+        deletePostit: this.deletePostit,
       }
     );
     this.postitLastId = this.postitList.push(newPostit);
@@ -156,6 +158,20 @@ export default class Page {
       this.postitList
     );
   }
+
+  deletePostit = (postid_id: number) => {
+    const target = this.postitList.findIndex(
+      (postit) => postit.state.postit_id === postid_id
+    );
+    console.log("!!!!!!!!!", target);
+
+    if (target !== -1) this.postitList.splice(target, 1);
+    setStorage(
+      `${STORAGE_KEYS.POSTIT_PAGE}_${this.state.selectedPageId}`,
+      this.postitList
+    );
+    this.setState(this.state);
+  };
 
   handleMouseUp(e: MouseEvent) {
     e.preventDefault();

@@ -14,6 +14,7 @@ interface BGColor {
 
 interface PostItProps {
   updatePostit: (postit_id: number) => void;
+  deletePostit: (postit_id: number) => void;
 }
 export default class Postit {
   $Postit: HTMLDivElement;
@@ -71,6 +72,9 @@ export default class Postit {
     this.$PostItDeleteButton.addEventListener("mouseup", (e) =>
       e.stopPropagation()
     );
+    this.$PostItDeleteButton.addEventListener("click", (e) => {
+      this.props.deletePostit(this.state.postit_id);
+    });
 
     this.processToggle = new ProcessToggle(
       this.$Postit.querySelector(".process-toggle-button")!,
