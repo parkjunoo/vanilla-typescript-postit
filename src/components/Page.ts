@@ -158,6 +158,7 @@ export default class Page {
   }
 
   handleMouseUp(e: MouseEvent) {
+    e.preventDefault();
     const target = e.target as HTMLDivElement;
     const { id, style } = target.parentElement!;
 
@@ -171,7 +172,6 @@ export default class Page {
       this.postitList
     );
     document.removeEventListener("mousemove", handleMouseMove);
-    e.preventDefault();
     const el: HTMLDivElement | null = document.querySelector(".postit.hold");
     if (el) {
       el.removeAttribute("gap-x");

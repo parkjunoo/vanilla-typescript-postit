@@ -1,4 +1,5 @@
 import { setStorage, getStorage } from "../helpers";
+import ProcessToggle from "./ProcessToggle";
 
 interface PostItState {
   postit_id: number;
@@ -6,14 +7,6 @@ interface PostItState {
   status?: string;
   pos_X: number;
   pos_Y: number;
-}
-interface PageListItem {
-  id: number;
-  page_name: string;
-  total_count: number;
-  todo_count: number;
-  ing_count: number;
-  complete_count: number;
 }
 
 interface PostItProps {
@@ -23,6 +16,7 @@ export default class Postit {
   $Postit: HTMLDivElement;
   $PostItContents: HTMLDivElement;
   $PostItForm: HTMLTextAreaElement;
+  processToggle: ProcessToggle;
   state: PostItState;
   props: PostItProps;
   constructor(
@@ -43,7 +37,18 @@ export default class Postit {
     this.$Postit.style.left = pos_X + "px";
     this.$Postit.style.top = pos_Y + "px";
     this.$Postit.innerHTML = `
-      <div class="postit-top-area"></div>
+      <div class="postit-top-area">
+        <input
+          class="process-toggle-button"
+          type="range"
+          id="RangeFilter"
+          min="1"
+          max="3"
+          value="1"
+          style="width: 60px"
+        />
+        <div class="postit-delete-button"><p class="tresh">🗑</p></div>
+      </div>
       <div class="postit-contents-area">${contents}</div>
       <textarea class="postit-contents-form" value="${contents}" style="display: none;"></textarea>
     `;
@@ -55,10 +60,16 @@ export default class Postit {
     this.$Postit.addEventListener("dblclick", this.dbClickPostit);
     this.dbClickPostit = this.dbClickPostit.bind(this);
     this.setContetns = this.setContetns.bind(this);
+
+    this.processToggle = new ProcessToggle(
+      this.$Postit.querySelector(".process-toggle-button")!,
+      this.state.status
+    );
+
+    const $toggle = document.querySelector<HTMLInputElement>(".rangeAll");
   }
 
   dbClickPostit = (e: MouseEvent) => {
-    e.stopPropagation();
     const $PostitContents = e.target as HTMLDivElement;
     const $InputForm =
       $PostitContents.parentElement?.querySelector<HTMLTextAreaElement>(

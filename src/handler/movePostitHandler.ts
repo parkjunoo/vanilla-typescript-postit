@@ -40,7 +40,7 @@ export function handleMouseDown(e: DomMouseEvent<HTMLElement>) {
 
 export function handleMouseMove(e: MouseEvent) {
   e.preventDefault();
-  const el: HTMLDivElement | null = document.querySelector(".postit.hold");
+  const el: HTMLDivElement = document.querySelector(".postit.hold")!;
   if (el) {
     const mouseX = e.clientX;
     const mouseY = e.clientY;
