@@ -16,6 +16,7 @@ export default class Postit {
   $Postit: HTMLDivElement;
   $PostItContents: HTMLDivElement;
   $PostItForm: HTMLTextAreaElement;
+  $PostItDeleteButton: HTMLDivElement;
   processToggle: ProcessToggle;
   state: PostItState;
   props: PostItProps;
@@ -61,12 +62,17 @@ export default class Postit {
     this.dbClickPostit = this.dbClickPostit.bind(this);
     this.setContetns = this.setContetns.bind(this);
 
+    this.$PostItDeleteButton = this.$Postit.querySelector(
+      ".postit-delete-button"
+    )!;
+    this.$PostItDeleteButton.addEventListener("mouseup", (e) =>
+      e.stopPropagation()
+    );
+
     this.processToggle = new ProcessToggle(
       this.$Postit.querySelector(".process-toggle-button")!,
       this.state.status
     );
-
-    const $toggle = document.querySelector<HTMLInputElement>(".rangeAll");
   }
 
   dbClickPostit = (e: MouseEvent) => {
@@ -92,6 +98,11 @@ export default class Postit {
     this.state.contents = text;
     this.props.updatePostit(this.state.postit_id);
   };
+
+  setBgColor = () => {
+
+  }
+  
   setState() {
     this.render();
   }
