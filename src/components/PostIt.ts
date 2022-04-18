@@ -47,7 +47,7 @@ export default class Postit {
           value="1"
           style="width: 60px"
         />
-        <div class="postit-delete-button"><p class="tresh">🗑</p></div>
+        <div class="postit-delete-button">🗑</div>
       </div>
       <div class="postit-contents-area">${contents}</div>
       <textarea class="postit-contents-form" value="${contents}" style="display: none;"></textarea>
@@ -57,7 +57,7 @@ export default class Postit {
     this.$PostItForm = this.$Postit.querySelector(".postit-contents-form")!;
     this.$PostItForm.value = contents;
 
-    this.$Postit.addEventListener("dblclick", this.dbClickPostit);
+    this.$PostItContents.addEventListener("dblclick", this.dbClickPostit);
     this.dbClickPostit = this.dbClickPostit.bind(this);
     this.setContetns = this.setContetns.bind(this);
 

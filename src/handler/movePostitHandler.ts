@@ -57,15 +57,15 @@ export function handleMouseMove(e: MouseEvent) {
 }
 
 export function handleMouseUp(e: MouseEvent) {
+  e.preventDefault();
   const target = e.target as HTMLDivElement;
   const postitId = target.parentElement!.id;
 
-  document.removeEventListener("mousemove", handleMouseMove);
-  e.preventDefault();
   const el: HTMLDivElement | null = document.querySelector(".postit.hold");
   if (el) {
     el.removeAttribute("gap-x");
     el.removeAttribute("gap-y");
     el.classList.remove("hold");
   }
+  document.removeEventListener("mousemove", handleMouseMove);
 }

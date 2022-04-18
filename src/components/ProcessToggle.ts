@@ -5,8 +5,13 @@ export default class ProgressToggle {
   constructor($el: HTMLInputElement, state: any) {
     this.$ProgressToggle = $el;
     this.state = state;
+    this.$ProgressToggle?.addEventListener("mousedown", (e) =>
+      e.stopPropagation()
+    );
+    this.$ProgressToggle?.addEventListener("mouseup", (e) =>
+      e.stopPropagation()
+    );
     this.$ProgressToggle?.addEventListener("change", (e) => {
-      e.stopPropagation();
       console.log(this.$ProgressToggle?.value);
       // console.log(e);
     });
