@@ -15,14 +15,14 @@ export const STORAGE_KEYS = {
 
 export const STATUS_TEXT: StatusText = {
   todo: { color: "#778899", text: "TODO" },
-  doing: { color: "#035400", text: "DOING.." },
-  done: { color: "#1b64de", text: "DONE!" },
+  doing: { color: "#1b64de", text: "DOING.." },
+  done: { color: "#035400", text: "DONE!" },
 } as const;
 
 export const STATUS_BG_COLOR: BGColor = {
   todo: "#fff6c1",
-  doing: "#94dbc5",
-  done: "#bdcfe4",
+  doing: "#bdcfe4",
+  done: "#94dbc5",
 };
 
 export const STATUS_CODE: StatusCode = {

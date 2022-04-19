@@ -35,6 +35,7 @@ export default class Page {
   $Page: HTMLDivElement;
   $PostItContainer: HTMLDivElement;
   $PostItBody: HTMLDivElement;
+  $PostItProgressBar: HTMLDivElement;
   state: initState;
   props: props;
   postitList: PostIt[] = [];
@@ -51,11 +52,15 @@ export default class Page {
 
     this.$PostItContainer = this.$Page.querySelector(".postit-container")!;
     this.$PostItBody = this.$Page.querySelector(".postit-body")!;
+    this.$PostItProgressBar = this.$Page.querySelector(".postit-progress-ba")!;
 
     document.addEventListener("dragstart", (e: DragEvent) => {
       e.dataTransfer!.setData("startX", `${e.clientX! - 22}`);
       e.dataTransfer!.setData("startY", `${e.clientY! - 74}`);
     });
+
+    
+
     document.addEventListener("dragover", (e) => e.preventDefault());
     document.addEventListener("drop", this.addNewPostIt);
 

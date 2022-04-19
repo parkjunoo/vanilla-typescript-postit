@@ -21,14 +21,14 @@ body {
   padding: 20px;
   background-color: rgb(247, 247, 247);
 }
-.header {
-  position: relative;
+.postit-header {
   width: 100%;
-  height: 5vh;
+  height: 2vh;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
+  font-size: 14px;
 }
 .postit-progress-bar {
   position: relative;
@@ -37,7 +37,16 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: aqua;
+  margin-bottom: 0.4rem;
+}
+.progress-bar {
+  margin-left: 2rem;
+  background-color: rgb(230, 230, 230);
+  border: 1px solid rgb(230, 230, 230);
+  width: 80%;
+  max-width: 1000px;
+  height: 60%;
+  border-radius: 5rem;
 }
 .postit-wrapper {
   width: 200px;
