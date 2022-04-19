@@ -5,13 +5,13 @@ import Constant from "../common/constant";
 interface PostItState {
   postit_id: number;
   contents?: string;
-  status: string;
+  status: string | number;
   pos_X: number;
   pos_Y: number;
 }
 
 interface PostItProps {
-  updatePostit: (postit_id: number) => void;
+  updatePostit: () => void;
   deletePostit: (e: MouseEvent, postit_id: number) => void;
 }
 export default class Postit {
@@ -41,6 +41,7 @@ export default class Postit {
     this.$Postit.id = String(postit_id);
     this.$Postit.style.left = pos_X + "px";
     this.$Postit.style.top = pos_Y + "px";
+    this.$Postit.style.background = Constant.STATUS_BG_COLOR[this.state.status];
     this.$Postit.innerHTML = `
       <div class="postit-top-area">
         <div class="postit-status"></div>
@@ -89,6 +90,7 @@ export default class Postit {
       {
         setBgColor: this.setBgColor,
         setTextColor: this.setTextColor,
+        updateStatus: this.updateStatus,
       }
     );
   }
@@ -114,12 +116,19 @@ export default class Postit {
   setContetns = (text: string) => {
     this.$PostItContents.innerHTML = `${text}`;
     this.state.contents = text;
-    this.props.updatePostit(this.state.postit_id);
+    this.props.updatePostit();
+  };
+
+  updateStatus = (process: number) => {
+    const newStatus = Constant.STATUS_CODE[process];
+    this.state.status = newStatus;
+    this.props.updatePostit();
   };
 
   setBgColor = (process: number) => {
     const status = Constant.STATUS_CODE[process];
     this.$Postit.style.backgroundColor = Constant.STATUS_BG_COLOR[status];
+    this.props.updatePostit();
   };
 
   setTextColor = (process: number) => {

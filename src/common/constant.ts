@@ -2,7 +2,7 @@ interface StatusText {
   [status: string]: { color: string; text: string };
 }
 interface StatusCode {
-  [status: number]: string;
+  [status: number | string]: string | number;
 }
 interface BGColor {
   [status: string]: string;
@@ -29,6 +29,9 @@ export const STATUS_CODE: StatusCode = {
   1: "todo",
   2: "doing",
   3: "done",
+  todo: 1,
+  doing: 2,
+  done: 3,
 } as const;
 
 export default { STORAGE_KEYS, STATUS_TEXT, STATUS_CODE, STATUS_BG_COLOR };

@@ -1,6 +1,9 @@
+import Constant from "../common/constant";
+
 interface ProgressTogglePops {
   setBgColor: (process: number) => void;
   setTextColor: (process: number) => void;
+  updateStatus: (process: number) => void;
 }
 
 export default class ProgressToggle {
@@ -12,7 +15,7 @@ export default class ProgressToggle {
     this.$ProgressToggle = $el;
     this.state = state;
     this.props = props;
-
+    this.$ProgressToggle.value = String(Constant.STATUS_CODE[state]);
     this.$ProgressToggle?.addEventListener("mousedown", (e) =>
       e.stopPropagation()
     );
@@ -28,7 +31,6 @@ export default class ProgressToggle {
     this.state = newState;
     this.props.setBgColor(this.state);
     this.props.setTextColor(this.state);
+    this.props.updateStatus(this.state);
   };
-
-  render(): void {}
 }

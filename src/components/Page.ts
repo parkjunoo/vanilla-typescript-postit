@@ -153,7 +153,7 @@ export default class Page {
     });
   }
 
-  updatePostit(postid_id: number) {
+  updatePostit() {
     setStorage(
       `${STORAGE_KEYS.POSTIT_PAGE}_${this.state.selectedPageId}`,
       this.postitList
