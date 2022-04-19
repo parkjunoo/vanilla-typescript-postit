@@ -1,16 +1,17 @@
 import Nav from "./components/Nav";
 import Page from "./components/Page";
 import Postit from "./components/PostIt";
+import ProgressBar from "./components/ProgressBar";
 import { STORAGE_KEYS } from "./common/constant";
 import { setStorage, getStorage, removeStorage } from "./helpers";
 
 interface PageListItem {
   id: number;
   page_name: string;
-  total_count: number;
-  todo_count: number;
-  ing_count: number;
-  complete_count: number;
+  totalCount: number;
+  todoCount: number;
+  ingCount: number;
+  doneCount: number;
 }
 interface initState {
   pageList: PageListItem[];
@@ -26,11 +27,16 @@ export default class App {
   HeaderComponent;
   NavComponent;
   BodyComponent;
+  ProgressBarComponent;
 
   constructor($el: HTMLElement, initState: initState) {
     this.$App = $el;
     this.state = initState;
     this.HeaderComponent = this.$App.querySelector(".postit-header");
+    this.ProgressBarComponent = new ProgressBar(
+      this.$App.querySelector(".postit-progress-bar")!,
+      this.state
+    );
     this.NavComponent = new Nav(
       this.$App.querySelector<HTMLDivElement>(".postit-page-nav")!,
       this.state,
@@ -43,7 +49,9 @@ export default class App {
     this.BodyComponent = new Page(
       this.$App.querySelector(".postit-body-page")!,
       this.state,
-      {}
+      {
+        updateProcess: this.ProgressBarComponent.setState,
+      }
     );
   }
 
@@ -61,10 +69,10 @@ export default class App {
     pageList!.push({
       id: newIndex,
       page_name: `untitled_${newIndex}`,
-      total_count: 0,
-      todo_count: 0,
-      ing_count: 0,
-      complete_count: 0,
+      totalCount: 0,
+      todoCount: 0,
+      ingCount: 0,
+      doneCount: 0,
     });
     this.state.selectedPageId = this.state.maxPageId!;
     setStorage(STORAGE_KEYS.PAGE_LIST, pageList!);

@@ -10,10 +10,10 @@ import PostIt from "./PostIt";
 interface PageListItem {
   id: number;
   page_name: string;
-  total_count: number;
-  todo_count: number;
-  ing_count: number;
-  complete_count: number;
+  totalCount: number;
+  todoCount: number;
+  ingCount: number;
+  doneCount: number;
 }
 interface PostItState {
   postit_id: number;
@@ -30,12 +30,13 @@ interface initState {
   postitList?: PostIt[];
 }
 
-interface props {}
+interface props {
+  updateProcess: (state: initState) => void;
+}
 export default class Page {
   $Page: HTMLDivElement;
   $PostItContainer: HTMLDivElement;
   $PostItBody: HTMLDivElement;
-  $PostItProgressBar: HTMLDivElement;
   state: initState;
   props: props;
   postitList: PostIt[] = [];
@@ -52,14 +53,11 @@ export default class Page {
 
     this.$PostItContainer = this.$Page.querySelector(".postit-container")!;
     this.$PostItBody = this.$Page.querySelector(".postit-body")!;
-    this.$PostItProgressBar = this.$Page.querySelector(".postit-progress-ba")!;
 
     document.addEventListener("dragstart", (e: DragEvent) => {
       e.dataTransfer!.setData("startX", `${e.clientX! - 22}`);
       e.dataTransfer!.setData("startY", `${e.clientY! - 74}`);
     });
-
-    
 
     document.addEventListener("dragover", (e) => e.preventDefault());
     document.addEventListener("drop", this.addNewPostIt);
@@ -106,6 +104,7 @@ export default class Page {
   }
 
   addNewPostIt(e: DragEvent) {
+    console.log("!!!", this.state);
     const mouseX = e.clientX;
     const mouseY = e.clientY;
 

@@ -1,10 +1,10 @@
 interface PageListItem {
   id: number;
   page_name: string;
-  total_count: number;
-  todo_count: number;
-  ing_count: number;
-  complete_count: number;
+  totalCount: number;
+  todoCount: number;
+  ingCount: number;
+  doneCount: number;
 }
 interface initState {
   //   [key: string]: number | string | object | [];
