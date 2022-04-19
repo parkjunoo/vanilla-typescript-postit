@@ -14,7 +14,7 @@ interface BGColor {
 
 interface PostItProps {
   updatePostit: (postit_id: number) => void;
-  deletePostit: (postit_id: number) => void;
+  deletePostit: (e: MouseEvent, postit_id: number) => void;
 }
 export default class Postit {
   $Postit: HTMLDivElement;
@@ -50,7 +50,7 @@ export default class Postit {
           min="1"
           max="3"
           value="1"
-          style="width: 60px"
+          style=""
         />
         <div class="postit-delete-button">🗑</div>
       </div>
@@ -73,7 +73,8 @@ export default class Postit {
       e.stopPropagation()
     );
     this.$PostItDeleteButton.addEventListener("click", (e) => {
-      this.props.deletePostit(this.state.postit_id);
+      e.stopPropagation();
+      this.props.deletePostit(e, this.state.postit_id);
     });
 
     this.processToggle = new ProcessToggle(

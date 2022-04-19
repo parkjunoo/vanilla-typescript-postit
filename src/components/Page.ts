@@ -159,18 +159,20 @@ export default class Page {
     );
   }
 
-  deletePostit = (postid_id: number) => {
+  deletePostit = (e: MouseEvent, postid_id: number) => {
+    e.stopPropagation();
+    e.preventDefault();
     const target = this.postitList.findIndex(
       (postit) => postit.state.postit_id === postid_id
     );
-    console.log("!!!!!!!!!", target);
-
-    if (target !== -1) this.postitList.splice(target, 1);
+    if (target !== -1) {
+      const [postit] = this.postitList.splice(target, 1);
+      postit.$Postit.remove();
+    }
     setStorage(
       `${STORAGE_KEYS.POSTIT_PAGE}_${this.state.selectedPageId}`,
       this.postitList
     );
-    this.setState(this.state);
   };
 
   handleMouseUp(e: MouseEvent) {
@@ -181,6 +183,7 @@ export default class Page {
     const postit = this.postitList.find((e: PostIt) => {
       return e.state.postit_id === Number(id);
     });
+    if (!postit) return;
     postit!.state.pos_X = parseInt(style.left);
     postit!.state.pos_Y = parseInt(style.top);
     setStorage(

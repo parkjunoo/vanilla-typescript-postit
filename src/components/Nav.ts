@@ -55,14 +55,14 @@ export default class Nav {
 
     const $tabs = this.$Nav.querySelectorAll<HTMLDivElement>(".tab");
     $tabs.forEach((e: HTMLDivElement) => {
-      const $delete_button = e.childNodes[1] as HTMLDivElement;
-      $delete_button.addEventListener("click", (e) => {
+      const $deleteButton = e.childNodes[1] as HTMLDivElement;
+      $deleteButton.addEventListener("click", (e) => {
         e.stopPropagation();
-        this.props.deletePage(Number($delete_button.id));
+        this.props.deletePage(Number($deleteButton.id));
       });
       e.addEventListener("click", (e) => {
         e.stopPropagation();
-        this.props.clickPageTab(Number($delete_button.id));
+        this.props.clickPageTab(Number($deleteButton.id));
       });
     });
   }

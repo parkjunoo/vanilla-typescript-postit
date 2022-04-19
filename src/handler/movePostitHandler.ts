@@ -3,6 +3,7 @@ interface DomMouseEvent<T extends EventTarget> extends MouseEvent {
 }
 
 export function handleMouseDown(e: DomMouseEvent<HTMLElement>) {
+  if (e.target.className === "postit-delete-button") return;
   document.addEventListener("mousemove", handleMouseMove);
   const el = e.target.parentElement;
   const postitList = document.querySelectorAll(".postit");

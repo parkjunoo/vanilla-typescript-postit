@@ -25,7 +25,6 @@ export default class ProgressToggle {
 
   setState = (newState: any) => {
     this.state = newState;
-    console.log(newState);
     this.props.setBgColor(this.state);
   };
 
