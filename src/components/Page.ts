@@ -18,7 +18,7 @@ interface PageListItem {
 interface PostItState {
   postit_id: number;
   contents?: string;
-  status?: string;
+  status: string;
   pos_X: number;
   pos_Y: number;
 }
@@ -113,6 +113,7 @@ export default class Page {
           this.postitLastId += 1;
           return this.postitLastId;
         })(),
+        status: "todo",
         pos_X: mouseX - startX,
         pos_Y: mouseY - startY,
       },

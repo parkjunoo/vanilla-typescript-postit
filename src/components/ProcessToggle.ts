@@ -1,5 +1,6 @@
 interface ProgressTogglePops {
   setBgColor: (process: number) => void;
+  setTextColor: (process: number) => void;
 }
 
 export default class ProgressToggle {
@@ -26,6 +27,7 @@ export default class ProgressToggle {
   setState = (newState: any) => {
     this.state = newState;
     this.props.setBgColor(this.state);
+    this.props.setTextColor(this.state);
   };
 
   render(): void {}

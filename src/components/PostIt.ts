@@ -1,15 +1,13 @@
 import { setStorage, getStorage } from "../helpers";
 import ProcessToggle from "./ProcessToggle";
+import Constant from "../common/constant";
 
 interface PostItState {
   postit_id: number;
   contents?: string;
-  status?: string;
+  status: string;
   pos_X: number;
   pos_Y: number;
-}
-interface BGColor {
-  [bs: string]: string;
 }
 
 interface PostItProps {
@@ -21,11 +19,13 @@ export default class Postit {
   $PostItContents: HTMLDivElement;
   $PostItForm: HTMLTextAreaElement;
   $PostItDeleteButton: HTMLDivElement;
+  $PostItStatus: HTMLDivElement;
   processToggle: ProcessToggle;
   state: PostItState;
   props: PostItProps;
+
   constructor(
-    { postit_id, contents = "", status = "todo", pos_X, pos_Y }: PostItState,
+    { postit_id, contents = "", status, pos_X, pos_Y }: PostItState,
     props: PostItProps
   ) {
     this.state = {
@@ -43,6 +43,7 @@ export default class Postit {
     this.$Postit.style.top = pos_Y + "px";
     this.$Postit.innerHTML = `
       <div class="postit-top-area">
+        <div class="postit-status"></div>
         <input
           class="process-toggle-button"
           type="range"
@@ -66,6 +67,11 @@ export default class Postit {
     this.dbClickPostit = this.dbClickPostit.bind(this);
     this.setContetns = this.setContetns.bind(this);
 
+    this.$PostItStatus = this.$Postit.querySelector(".postit-status")!;
+    this.$PostItStatus.innerText = Constant.STATUS_TEXT[this.state.status].text;
+    this.$PostItStatus.style.color =
+      Constant.STATUS_TEXT[this.state.status].color;
+
     this.$PostItDeleteButton = this.$Postit.querySelector(
       ".postit-delete-button"
     )!;
@@ -82,6 +88,7 @@ export default class Postit {
       this.state.status,
       {
         setBgColor: this.setBgColor,
+        setTextColor: this.setTextColor,
       }
     );
   }
@@ -111,12 +118,14 @@ export default class Postit {
   };
 
   setBgColor = (process: number) => {
-    const bgList: BGColor = {
-      1: "#fff6c1",
-      2: "#94dbc5",
-      3: "#bdcfe4",
-    };
-    this.$Postit.style.backgroundColor = bgList[process];
+    const status = Constant.STATUS_CODE[process];
+    this.$Postit.style.backgroundColor = Constant.STATUS_BG_COLOR[status];
+  };
+
+  setTextColor = (process: number) => {
+    const status = Constant.STATUS_CODE[process];
+    this.$PostItStatus.innerText = Constant.STATUS_TEXT[status].text;
+    this.$PostItStatus.style.color = Constant.STATUS_TEXT[status].color;
   };
 
   setState() {

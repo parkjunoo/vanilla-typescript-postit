@@ -67,6 +67,14 @@ body {
   height: 2rem;
   background-color: rgba(235, 233, 233, 0.328);
 }
+.postit-status {
+  margin-left: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  color: lightslategray;
+}
 .postit-delete-button {
   width: 2.5rem;
   height: 2rem;
@@ -77,8 +85,6 @@ body {
   background-color: gainsboro;
   margin-left: 1rem;
   border: 1px solid rgba(235, 233, 233, 0.543);
-}
-.tresh {
 }
 .process-toggle-button {
   display: flex;
@@ -107,12 +113,6 @@ body {
     6px 6px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }
-/* .postit-stk {
-  width: 200px;
-  height: 200px;
-  opacity: 70%;
-  background-color: #94dbc5;
-} */
 .postit-memo-detached {
   width: 240px;
 }
