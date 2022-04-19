@@ -9,10 +9,27 @@ interface PostItState {
   pos_X: number;
   pos_Y: number;
 }
+interface PageListItem {
+  id: number;
+  pageName: string;
+  totalCount: number;
+  doingCount: number;
+  doneCount: number;
+}
+
+interface initState {
+  //   [key: string]: number | string | object | [];
+  pageList?: PageListItem[];
+  lastPageId?: number;
+  selectedPageId?: number;
+  postitList?: Postit[];
+  selectedPageInfo?: PageListItem;
+}
 
 interface PostItProps {
   updatePostit: () => void;
   deletePostit: (e: MouseEvent, postit_id: number) => void;
+  reRenderPage: (newState: initState) => void;
 }
 export default class Postit {
   $Postit: HTMLDivElement;
@@ -123,6 +140,9 @@ export default class Postit {
     const newStatus = Constant.STATUS_CODE[process];
     this.state.status = newStatus;
     this.props.updatePostit();
+
+    const param: initState = {};
+    this.props.reRenderPage(param);
   };
 
   setBgColor = (process: number) => {

@@ -13,7 +13,7 @@ interface PageListItem {
   doneCount: number;
 }
 interface initState {
-  pageList: PageListItem[];
+  pageList?: PageListItem[];
   lastPageId?: number;
   selectedPageId?: number;
   selectedPageInfo?: PageListItem;
@@ -45,7 +45,9 @@ export default class App {
     this.BodyComponent = new Page(
       this.$App.querySelector(".postit-body-page")!,
       this.state,
-      {}
+      {
+        reRenderPage: this.setState,
+      }
     );
     this.ProgressBarComponent = new ProgressBar(
       this.$App.querySelector(".postit-progress-bar")!,
@@ -82,11 +84,11 @@ export default class App {
       return e.id === id;
     });
     if (selectedPageId === id) {
-      if (pageList.length === 1) {
+      if (pageList!.length === 1) {
         alert("마지막 페이지는 삭제할 수 없습니다.");
         return;
       }
-      this.state.selectedPageId = pageList[findIndex - 1].id;
+      this.state.selectedPageId = pageList![findIndex - 1].id;
     }
 
     const [target] = pageList!.splice(findIndex, 1);

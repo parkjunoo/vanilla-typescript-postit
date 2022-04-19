@@ -23,14 +23,16 @@ interface PostItState {
 }
 interface initState {
   //   [key: string]: number | string | object | [];
-  pageList: PageListItem[];
+  pageList?: PageListItem[];
   lastPageId?: number;
   selectedPageId?: number;
   postitList?: PostIt[];
   selectedPageInfo?: PageListItem;
 }
 
-interface props {}
+interface props {
+  reRenderPage: (newState: initState) => void;
+}
 export default class Page {
   $Page: HTMLDivElement;
   $PostItContainer: HTMLDivElement;
@@ -101,6 +103,7 @@ export default class Page {
         {
           updatePostit: this.updatePostit,
           deletePostit: this.deletePostit,
+          reRenderPage: this.props.reRenderPage,
         }
       );
     });
@@ -136,6 +139,7 @@ export default class Page {
       {
         updatePostit: this.updatePostit,
         deletePostit: this.deletePostit,
+        reRenderPage: this.props.reRenderPage,
       }
     );
     this.postitLastId = this.postitList.push(newPostit);

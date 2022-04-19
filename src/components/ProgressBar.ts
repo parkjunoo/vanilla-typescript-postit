@@ -7,7 +7,7 @@ interface PageListItem {
 }
 interface initState {
   //   [key: string]: number | string | object | [];
-  pageList: PageListItem[];
+  pageList?: PageListItem[];
   lastPageId?: number;
   selectedPageId?: number;
   selectedPageInfo?: PageListItem;
