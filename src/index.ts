@@ -4,10 +4,9 @@ import { STORAGE_KEYS } from "./common/constant";
 
 interface PageListItem {
   id: number;
-  page_name: string;
+  pageName: string;
   totalCount: number;
-  todoCount: number;
-  ingCount: number;
+  doingCount: number;
   doneCount: number;
 }
 interface initState {
@@ -15,6 +14,7 @@ interface initState {
   pageList: PageListItem[];
   lastPageId?: number;
   selectedPageId?: number;
+  selectedPageInfo?: PageListItem;
   maxPageId?: number;
 }
 
@@ -29,11 +29,10 @@ const initState: initState = {
     pageList = [
       {
         id: 1,
-        page_name: "untitled",
-        total_count: 0,
-        todo_count: 0,
-        ing_count: 0,
-        complete_count: 0,
+        pageName: "untitled",
+        totalCount: 0,
+        doingCount: 0,
+        doneCount: 0,
       },
     ];
     setStorage(STORAGE_KEYS.PAGE_LIST, pageList);
@@ -41,6 +40,7 @@ const initState: initState = {
   initState["pageList"] = pageList;
   initState["lastPageId"] = pageList[pageList.length - 1].id;
   initState["selectedPageId"] = pageList[pageList.length - 1].id;
+  initState["selectedPageInfo"] = pageList[pageList.length - 1];
   initState["maxPageId"] = Math.max.apply(
     Math,
     pageList.map(function (page: PageListItem) {

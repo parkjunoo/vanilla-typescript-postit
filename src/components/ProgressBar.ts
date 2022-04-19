@@ -1,9 +1,8 @@
 interface PageListItem {
   id: number;
-  page_name: string;
+  pageName: string;
   totalCount: number;
-  todoCount: number;
-  ingCount: number;
+  doingCount: number;
   doneCount: number;
 }
 interface initState {
@@ -11,12 +10,14 @@ interface initState {
   pageList: PageListItem[];
   lastPageId?: number;
   selectedPageId?: number;
+  selectedPageInfo?: PageListItem;
 }
 
 export default class ProgressBar {
   $ProgressBar: HTMLDivElement;
   $Doing: HTMLDivElement;
   $Done: HTMLDivElement;
+  $DoneRate: HTMLDivElement;
   donePercent: number = 0;
   doingPercent: number = 0;
   state: initState;
@@ -25,16 +26,16 @@ export default class ProgressBar {
     this.$ProgressBar = $el;
     this.$Doing = this.$ProgressBar.querySelector(".progress-doing")!;
     this.$Done = this.$ProgressBar.querySelector(".progress-done")!;
+    this.$DoneRate = this.$ProgressBar.querySelector(".done-rate")!;
+
     this.state = initState;
     this.setState(initState);
   }
 
   fetchProcess = () => {
-    const target = this.state.pageList.find(
-      (e) => e.id === this.state.selectedPageId
-    );
-    this.doingPercent = (target!.ingCount / target!.totalCount) * 100;
-    this.donePercent = (target!.doneCount / target!.totalCount) * 100;
+    const { totalCount, doingCount, doneCount } = this.state.selectedPageInfo!;
+    this.doingPercent = totalCount ? (doingCount / totalCount) * 100 : 0;
+    this.donePercent = totalCount ? (doneCount / totalCount) * 100 : 0;
   };
 
   setState = (newState: initState) => {
@@ -44,8 +45,8 @@ export default class ProgressBar {
   };
 
   render(): void {
-    console.log("!!!!!!");
-    this.$Doing.style.width = this.doingPercent + "%;";
-    this.$Done.style.width = this.donePercent + "%;";
+    this.$DoneRate.innerText = Math.floor(this.donePercent) + "% 완료";
+    this.$Doing.style.width = this.doingPercent + "%";
+    this.$Done.style.width = this.donePercent + "%";
   }
 }

@@ -9,10 +9,9 @@ import PostIt from "./PostIt";
 
 interface PageListItem {
   id: number;
-  page_name: string;
+  pageName: string;
   totalCount: number;
-  todoCount: number;
-  ingCount: number;
+  doingCount: number;
   doneCount: number;
 }
 interface PostItState {
@@ -28,11 +27,10 @@ interface initState {
   lastPageId?: number;
   selectedPageId?: number;
   postitList?: PostIt[];
+  selectedPageInfo?: PageListItem;
 }
 
-interface props {
-  updateProcess: (state: initState) => void;
-}
+interface props {}
 export default class Page {
   $Page: HTMLDivElement;
   $PostItContainer: HTMLDivElement;
@@ -62,8 +60,6 @@ export default class Page {
     document.addEventListener("dragover", (e) => e.preventDefault());
     document.addEventListener("drop", this.addNewPostIt);
 
-    const { selectedPageId } = this.state;
-    this.fetchData(selectedPageId!);
     this.setState(initState);
   }
 
@@ -77,9 +73,22 @@ export default class Page {
       postits = [];
     }
 
+    let totalCount = postits.length;
+    let doingCount = 0;
+    let doneCount = 0;
+
     this.postitList = postits.map((post: PostIt) => {
       if (post.state.postit_id > this.postitLastId)
         this.postitLastId = post.state.postit_id;
+
+      switch (post.state.status) {
+        case "doing":
+          doingCount++;
+          break;
+        case "done":
+          doneCount++;
+          break;
+      }
 
       return new PostIt(
         {
@@ -95,6 +104,10 @@ export default class Page {
         }
       );
     });
+
+    this.state.selectedPageInfo!.totalCount = totalCount;
+    this.state.selectedPageInfo!.doingCount = doingCount;
+    this.state.selectedPageInfo!.doneCount = doneCount;
   }
 
   setState(newState: initState) {
@@ -104,7 +117,6 @@ export default class Page {
   }
 
   addNewPostIt(e: DragEvent) {
-    console.log("!!!", this.state);
     const mouseX = e.clientX;
     const mouseY = e.clientY;
 

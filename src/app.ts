@@ -7,16 +7,16 @@ import { setStorage, getStorage, removeStorage } from "./helpers";
 
 interface PageListItem {
   id: number;
-  page_name: string;
+  pageName: string;
   totalCount: number;
-  todoCount: number;
-  ingCount: number;
+  doingCount: number;
   doneCount: number;
 }
 interface initState {
   pageList: PageListItem[];
   lastPageId?: number;
   selectedPageId?: number;
+  selectedPageInfo?: PageListItem;
   maxPageId?: number;
   postitList?: Postit[];
 }
@@ -33,10 +33,6 @@ export default class App {
     this.$App = $el;
     this.state = initState;
     this.HeaderComponent = this.$App.querySelector(".postit-header");
-    this.ProgressBarComponent = new ProgressBar(
-      this.$App.querySelector(".postit-progress-bar")!,
-      this.state
-    );
     this.NavComponent = new Nav(
       this.$App.querySelector<HTMLDivElement>(".postit-page-nav")!,
       this.state,
@@ -49,9 +45,11 @@ export default class App {
     this.BodyComponent = new Page(
       this.$App.querySelector(".postit-body-page")!,
       this.state,
-      {
-        updateProcess: this.ProgressBarComponent.setState,
-      }
+      {}
+    );
+    this.ProgressBarComponent = new ProgressBar(
+      this.$App.querySelector(".postit-progress-bar")!,
+      this.state
     );
   }
 
@@ -68,16 +66,14 @@ export default class App {
     })();
     pageList!.push({
       id: newIndex,
-      page_name: `untitled_${newIndex}`,
+      pageName: `untitled_${newIndex}`,
       totalCount: 0,
-      todoCount: 0,
-      ingCount: 0,
+      doingCount: 0,
       doneCount: 0,
     });
     this.state.selectedPageId = this.state.maxPageId!;
     setStorage(STORAGE_KEYS.PAGE_LIST, pageList!);
-    this.NavComponent.setState(this.state);
-    this.BodyComponent.setState(this.state);
+    this.setState(this.state);
   };
 
   deletePage = (id: number) => {
@@ -96,9 +92,7 @@ export default class App {
     const [target] = pageList!.splice(findIndex, 1);
     setStorage(STORAGE_KEYS.PAGE_LIST, pageList!);
     removeStorage(`${STORAGE_KEYS.POSTIT_PAGE}_${target.id}`);
-
-    this.NavComponent.setState(this.state);
-    this.BodyComponent.setState(this.state);
+    this.setState(this.state);
   };
 
   clickPageTab = (tab_id: number) => {
@@ -107,9 +101,18 @@ export default class App {
       selectedPageId: tab_id,
     };
     this.state.selectedPageId = tab_id;
-    this.NavComponent.setState(newState);
-    this.BodyComponent.setState(newState);
+    this.setState(newState);
   };
 
   //? ----------------------------page------------------------- ?//
+
+  setState = (newState: initState) => {
+    this.state = {
+      ...this.state,
+      ...newState,
+    };
+    this.NavComponent.setState(this.state);
+    this.BodyComponent.setState(this.state);
+    this.ProgressBarComponent.setState(this.state);
+  };
 }

@@ -1,9 +1,8 @@
 interface PageListItem {
   id: number;
-  page_name: string;
+  pageName: string;
   totalCount: number;
-  todoCount: number;
-  ingCount: number;
+  doingCount: number;
   doneCount: number;
 }
 interface initState {
@@ -11,6 +10,7 @@ interface initState {
   pageList: PageListItem[];
   lastPageId?: number;
   selectedPageId?: number;
+  selectedPageInfo?: PageListItem;
 }
 interface props {
   addNewPage: () => void;
@@ -46,7 +46,7 @@ export default class Nav {
     ${pageList!
       .map((e, idx) => {
         return `<div class='tab ${selectedPageId === e.id ? "selected" : ""}'>
-        ${e.page_name}
+        ${e.pageName}
         <div class="tab-delete-button" id="${e.id}">🗑</div>
         </div>`;
       })
