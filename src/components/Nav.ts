@@ -87,8 +87,6 @@ export default class Nav {
         $NavNameForm?.addEventListener("focusout", (e) => {
           $textArea.style.display = "";
           $NavNameForm!.style.display = "none";
-          console.log($NavNameForm!.value);
-          console.log(this.state.selectedPageInfo);
           this.props.updateTab(tabId, $NavNameForm!.value);
         });
       });

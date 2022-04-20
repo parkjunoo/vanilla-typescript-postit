@@ -10,7 +10,6 @@ export default class CalenderModal {
     )!;
     this.$CalenderModal.style.display = "none";
     this.$CalenderModalDimmed.style.display = "none";
-    console.log("!!!", this.$CalenderCloseButton);
     this.$CalenderModalDimmed.addEventListener("click", this.hide);
     this.$CalenderCloseButton.addEventListener("click", this.hide);
   }
