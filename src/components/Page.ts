@@ -1,5 +1,6 @@
 import { STORAGE_KEYS } from "../common/constant";
 import { setStorage, getStorage } from "../helpers";
+import dayjs from "dayjs";
 import {
   handleMouseDown,
   handleMouseMove,
@@ -14,13 +15,7 @@ interface PageListItem {
   doingCount: number;
   doneCount: number;
 }
-interface PostItState {
-  postit_id: number;
-  contents?: string;
-  status: string;
-  pos_X: number;
-  pos_Y: number;
-}
+
 interface initState {
   //   [key: string]: number | string | object | [];
   pageList?: PageListItem[];
@@ -99,6 +94,9 @@ export default class Page {
           contents: post.state.contents,
           pos_X: post.state.pos_X,
           pos_Y: post.state.pos_Y,
+          created_date: post.state.created_date,
+          doing_date: post.state.doing_date,
+          done_date: post.state.done_date,
         },
         {
           updatePostit: this.updatePostit,
@@ -135,6 +133,9 @@ export default class Page {
         status: "todo",
         pos_X: mouseX - startX,
         pos_Y: mouseY - startY,
+        created_date: dayjs().format("YYYY-MM-DD HH:mm"),
+        doing_date: null,
+        done_date: null,
       },
       {
         updatePostit: this.updatePostit,

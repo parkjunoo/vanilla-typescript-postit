@@ -8,6 +8,9 @@ interface PostItState {
   status: string | number;
   pos_X: number;
   pos_Y: number;
+  created_date: string | null;
+  doing_date?: string | null;
+  done_date?: string | null;
 }
 interface PageListItem {
   id: number;
@@ -42,7 +45,16 @@ export default class Postit {
   props: PostItProps;
 
   constructor(
-    { postit_id, contents = "", status, pos_X, pos_Y }: PostItState,
+    {
+      postit_id,
+      contents = "",
+      status,
+      pos_X,
+      pos_Y,
+      created_date,
+      doing_date,
+      done_date,
+    }: PostItState,
     props: PostItProps
   ) {
     this.state = {
@@ -51,6 +63,9 @@ export default class Postit {
       status: status,
       pos_X: pos_X,
       pos_Y: pos_Y,
+      created_date,
+      doing_date,
+      done_date,
     };
     this.props = props;
     this.$Postit = document.createElement("div");
