@@ -2,7 +2,7 @@ import Nav from "./components/Nav";
 import Page from "./components/Page";
 import Postit from "./components/PostIt";
 import ProgressBar from "./components/ProgressBar";
-import CalenderModal from "./components/modal/Calender";
+import CalenderModal from "./components/modal/CalenderModal";
 import { STORAGE_KEYS } from "./common/constant";
 import { setStorage, getStorage, removeStorage } from "./helpers";
 
