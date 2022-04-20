@@ -1,11 +1,7 @@
 import { STORAGE_KEYS } from "../common/constant";
 import { setStorage, getStorage } from "../helpers";
 import dayjs from "dayjs";
-import {
-  handleMouseDown,
-  handleMouseMove,
-  handleMouseUp,
-} from "../handler/movePostitHandler";
+import { handleMouseDown, handleMouseMove } from "../handler/movePostitHandler";
 import PostIt from "./PostIt";
 
 interface PageListItem {
