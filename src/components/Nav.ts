@@ -16,6 +16,7 @@ interface props {
   addNewPage: () => void;
   deletePage: (id: number) => void;
   clickPageTab: (id: number) => void;
+  updateTab: (id: number, newPageName: string) => void;
 }
 export default class Nav {
   $Nav: HTMLDivElement;
@@ -63,7 +64,7 @@ export default class Nav {
       const $NavNameForm = e.childNodes[3] as HTMLInputElement;
       const $deleteButton = e.childNodes[5] as HTMLDivElement;
       const tabId = Number($deleteButton.id);
-      
+
       $deleteButton.addEventListener("click", (e) => {
         e.stopPropagation();
         this.props.deletePage(tabId);
@@ -75,17 +76,19 @@ export default class Nav {
       });
 
       e.addEventListener("dblclick", (e) => {
-        const target = e.target as HTMLDivElement;
+        e.stopPropagation();
 
         $textArea.style.display = "none";
         $NavNameForm.style.display = "";
+
         $NavNameForm?.focus();
         $NavNameForm?.addEventListener("focusout", (e) => {
           $textArea.style.display = "";
           $NavNameForm!.style.display = "none";
+          console.log($NavNameForm!.value);
+          console.log(this.state.selectedPageInfo);
+          this.props.updateTab(tabId, $NavNameForm!.value);
         });
-
-        e.stopPropagation();
       });
 
       $deleteButton.addEventListener;

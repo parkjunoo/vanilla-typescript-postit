@@ -29,6 +29,7 @@ body {
   align-items: center;
   gap: 20px;
   font-size: 14px;
+  margin: 1rem 0;
 }
 .postit-progress-bar {
   position: relative;
@@ -187,7 +188,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 12rem;
+  width: 15rem;
   max-width: 15rem;
   height: 30px;
   border-radius: 15px 15px 0 0;

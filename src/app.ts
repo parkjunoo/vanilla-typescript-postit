@@ -40,6 +40,7 @@ export default class App {
         addNewPage: this.addNewPage,
         deletePage: this.deletePage,
         clickPageTab: this.clickPageTab,
+        updateTab: this.updateTab,
       }
     );
     this.BodyComponent = new Page(
@@ -78,6 +79,18 @@ export default class App {
     this.setState(this.state);
   };
 
+  updateTab = (tab_id: number, newPageName: string) => {
+    if (!newPageName) return;
+    const newTabInfo = this.state.pageList!.find((e) => e.id === tab_id);
+    newTabInfo!.pageName = newPageName;
+    const newState = {
+      ...this.state,
+      selectedPageInfo: newTabInfo,
+    };
+    setStorage(STORAGE_KEYS.PAGE_LIST, this.state.pageList!);
+    this.setState(newState);
+  };
+
   deletePage = (id: number) => {
     let { pageList, selectedPageId } = this.state;
     const findIndex = pageList!.findIndex((e) => {
@@ -101,8 +114,8 @@ export default class App {
     const newState = {
       ...this.state,
       selectedPageId: tab_id,
+      selectedPageInfo: this.state.pageList!.find((e) => e.id === tab_id),
     };
-    this.state.selectedPageId = tab_id;
     this.setState(newState);
   };
 
