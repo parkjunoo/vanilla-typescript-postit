@@ -1,6 +1,7 @@
 import { setStorage, getStorage } from "../helpers";
 import ProcessToggle from "./ProcessToggle";
 import Constant from "../common/constant";
+import dayjs from "dayjs";
 
 interface PostItState {
   postit_id: number;
@@ -154,10 +155,27 @@ export default class Postit {
   updateStatus = (process: number) => {
     const newStatus = Constant.STATUS_CODE[process];
     this.state.status = newStatus;
+    const nowDateTime = dayjs().format("YYYY-MM-DD HH:mm");
+    switch (newStatus) {
+      case "todo":
+        this.state.doing_date = null;
+        this.state.done_date = null;
+        break;
+      case "doing":
+        this.state.doing_date = nowDateTime;
+        if (this.state.done_date) {
+          this.state.done_date = null;
+        }
+        break;
+      case "done":
+        this.state.done_date = nowDateTime;
+        if (!this.state.doing_date) {
+          this.state.doing_date = nowDateTime;
+        }
+        break;
+    }
     this.props.updatePostit();
-
-    const param: initState = {};
-    this.props.reRenderPage(param);
+    this.props.reRenderPage({});
   };
 
   setBgColor = (process: number) => {
