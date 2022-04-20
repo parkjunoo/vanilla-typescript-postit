@@ -21,6 +21,7 @@ interface props {
 export default class Nav {
   $Nav: HTMLDivElement;
   $NavAddButton: HTMLDivElement;
+  $NavCalenderButton: HTMLDivElement;
   $NavContainer: HTMLDivElement;
   state: initState;
   props: props;
@@ -32,6 +33,7 @@ export default class Nav {
 
     this.$NavContainer = this.$Nav.querySelector(".page-nav-tab")!;
     this.$NavAddButton = this.$Nav.querySelector(".add-tab-button")!;
+    this.$NavCalenderButton = this.$Nav.querySelector(".calender-button")!;
     this.$NavAddButton.addEventListener("click", this.props.addNewPage);
     this.setState(initState);
   }

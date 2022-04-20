@@ -174,14 +174,16 @@ body {
   width: auto;
   height: 4rem;
 }
-.size-button {
+.calender-button {
+  position: absolute;
+  right: 0;
   display: flex;
   width: 10%;
   height: 4rem;
   padding-right: 2rem;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 .tab {
   position: relative;
@@ -213,4 +215,45 @@ body {
   height: 3rem;
   font-size: 3rem;
   background-color: ghostwhite;
+}
+
+.calender-dimmed {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: #00000096;
+}
+
+.calender-modal {
+  z-index: 9999;
+  position: fixed;
+  width: 80vw;
+  height: 70vh;
+  top: 10vh;
+  left: 10vw;
+  background-color: #fff;
+  border-radius: 1rem;
+  padding: 1.6rem;
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 2rem;
+}
+.modal-close-button {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  right: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: rgba(173, 169, 169, 0.696);
+  font-size: 20px;
+  font-weight: 700px;
+  border-radius: 0.2rem;
 }

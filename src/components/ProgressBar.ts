@@ -6,7 +6,6 @@ interface PageListItem {
   doneCount: number;
 }
 interface initState {
-  //   [key: string]: number | string | object | [];
   pageList?: PageListItem[];
   lastPageId?: number;
   selectedPageId?: number;

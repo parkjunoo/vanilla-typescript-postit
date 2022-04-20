@@ -2,6 +2,7 @@ import Nav from "./components/Nav";
 import Page from "./components/Page";
 import Postit from "./components/PostIt";
 import ProgressBar from "./components/ProgressBar";
+import CalenderModal from "./components/modal/Calender";
 import { STORAGE_KEYS } from "./common/constant";
 import { setStorage, getStorage, removeStorage } from "./helpers";
 
@@ -23,16 +24,19 @@ interface initState {
 
 export default class App {
   $App: HTMLElement;
+  $CalenderButton: HTMLElement;
   state: initState;
   HeaderComponent;
   NavComponent;
   BodyComponent;
   ProgressBarComponent;
+  CalenderComponent;
 
   constructor($el: HTMLElement, initState: initState) {
     this.$App = $el;
     this.state = initState;
     this.HeaderComponent = this.$App.querySelector(".postit-header");
+    this.$CalenderButton = this.$App.querySelector(".calender-button")!;
     this.NavComponent = new Nav(
       this.$App.querySelector<HTMLDivElement>(".postit-page-nav")!,
       this.state,
@@ -54,6 +58,11 @@ export default class App {
       this.$App.querySelector(".postit-progress-bar")!,
       this.state
     );
+
+    this.CalenderComponent = new CalenderModal();
+    this.$CalenderButton.addEventListener("click", (e) => {
+      this.CalenderComponent.show();
+    });
   }
 
   //? -------------------------nav----------------------------- ?//
