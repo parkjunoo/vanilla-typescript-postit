@@ -45,25 +45,50 @@ export default class Nav {
     this.$NavContainer.innerHTML = `
     ${pageList!
       .map((e, idx) => {
-        return `<div class='tab ${selectedPageId === e.id ? "selected" : ""}'>
-        ${e.pageName}
+        return `<div class='tab ${
+          selectedPageId === e.id ? "selected" : ""
+        }' id="${e.id}">
+        <p>${e.pageName}</p>
+        <input class="tab-name-form" style="display:none" type="text" />
         <div class="tab-delete-button" id="${e.id}">🗑</div>
-        </div>`;
+        </div>
+        `;
       })
       .join("")}
     `;
 
     const $tabs = this.$Nav.querySelectorAll<HTMLDivElement>(".tab");
     $tabs.forEach((e: HTMLDivElement) => {
-      const $deleteButton = e.childNodes[1] as HTMLDivElement;
+      const $textArea = e.childNodes[1] as HTMLParagraphElement;
+      const $NavNameForm = e.childNodes[3] as HTMLInputElement;
+      const $deleteButton = e.childNodes[5] as HTMLDivElement;
+      const tabId = Number($deleteButton.id);
+      
       $deleteButton.addEventListener("click", (e) => {
         e.stopPropagation();
-        this.props.deletePage(Number($deleteButton.id));
+        this.props.deletePage(tabId);
       });
       e.addEventListener("click", (e) => {
         e.stopPropagation();
-        this.props.clickPageTab(Number($deleteButton.id));
+        if (selectedPageId === tabId) return;
+        this.props.clickPageTab(tabId);
       });
+
+      e.addEventListener("dblclick", (e) => {
+        const target = e.target as HTMLDivElement;
+
+        $textArea.style.display = "none";
+        $NavNameForm.style.display = "";
+        $NavNameForm?.focus();
+        $NavNameForm?.addEventListener("focusout", (e) => {
+          $textArea.style.display = "";
+          $NavNameForm!.style.display = "none";
+        });
+
+        e.stopPropagation();
+      });
+
+      $deleteButton.addEventListener;
     });
   }
 }

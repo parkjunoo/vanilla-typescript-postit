@@ -73,7 +73,7 @@ export default class Postit {
         />
         <div class="postit-delete-button">🗑</div>
       </div>
-      <div class="postit-contents-area">${contents}</div>
+      <pre class="postit-contents-area">${contents}</pre>
       <textarea class="postit-contents-form" value="${contents}" style="display: none;"></textarea>
     `;
 
@@ -119,8 +119,8 @@ export default class Postit {
         ".postit-contents-form"
       );
 
-    $PostitContents!.style.display = "none";
     $InputForm!.style.display = "";
+    $PostitContents!.style.display = "none";
 
     $InputForm?.focus();
     $InputForm?.addEventListener("focusout", (e) => {
