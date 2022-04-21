@@ -5,6 +5,10 @@
   font-size: 62.5%;
 }
 
+ul,
+li {
+  list-style: none;
+}
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -262,7 +266,6 @@ body {
 .modal-body {
   width: 100%;
   height: 100%;
-  background-color: aqua;
   font-size: 0;
   letter-spacing: 0;
   word-spacing: 0;
@@ -300,6 +303,8 @@ body {
   display: inline-block;
   width: 3%;
   height: 1.5rem;
+  letter-spacing: 0;
+  word-spacing: 0;
 }
 .schedule-wrapper {
   width: 100%;
@@ -312,23 +317,25 @@ body {
   display: inline-block;
   width: 100%;
   height: 100%;
-  background-color: beige;
 }
 .date-contents {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background-color: aqua;
   margin: 10px 0px;
   justify-content: center;
   align-items: center;
 }
 .month {
+  display: table;
+  top: 0;
   flex-direction: column;
   width: 100%;
-  height: 100%;
   align-items: center;
+  border-right: 1px solid #000;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
 }
 .month-title {
   text-align: center;
@@ -339,12 +346,11 @@ body {
 }
 .date {
   width: 100%;
-  height: 12px;
+  height: 14px;
   font-size: 12px;
-  text-align: ;
+  text-align: center;
 }
 .daily-state {
   width: 100%;
   height: 100%;
-  background-color: #34b37e;
 }

@@ -14,7 +14,7 @@ export default class Month {
   scheduleList: any = [];
   constructor(year: number, month: number, postitList: any) {
     this.postitList = postitList;
-    this.month = month;
+    this.month = Number(month < 10 ? "0" + month : month);
     this.year = year;
     this.isLeap = this.checkLeapYear(year);
     this.$monthWrapper = document.createElement("li");
@@ -47,28 +47,13 @@ export default class Month {
     const dailyWidth = (100 / monthLastDate).toFixed(2);
     for (let i = 1; i <= monthLastDate; i++) {
       const date = i < 10 ? "0" + i : i;
-      this.postitList.forEach((postit: any, index: any) => {
-        const startDiff = dayjs(postit.created_date).diff(
+      this.scheduleList.push(
+        new Daily(
           `${this.year}-${this.month}-${date}`,
-          "day"
-        );
-        const doneDiff = dayjs(postit.done_date).diff(
-          `${this.year}-${this.month}-${date}`,
-          "day"
-        );
-
-        if (startDiff <= 0) {
-          if (!this.dailyScheduleJob.includes(postit)) {
-            this.dailyScheduleJob.push(postit);
-          }
-          if (!isNaN(doneDiff) && doneDiff < 0) {
-            this.dailyScheduleJob = this.dailyScheduleJob.filter(
-              (e: any) => e.postit_id !== postit.postit_id
-            );
-          }
-        }
-      });
-      this.scheduleList.push(new Daily(i, dailyWidth, this.dailyScheduleJob));
+          dailyWidth,
+          this.postitList
+        )
+      );
     }
   };
 

@@ -42,7 +42,7 @@ export default class CalenderModal {
     this.$ScheduleWrapper = document.querySelector(".schedule-wrapper")!;
     this.$CalenderModalDimmed.addEventListener("click", this.hide);
     this.$CalenderCloseButton.addEventListener("click", this.hide);
-    this.show();
+    this.hide();
   }
   show = async () => {
     await this.fetchData();
@@ -117,7 +117,6 @@ export default class CalenderModal {
   render = () => {
     const { monthList } = this.state;
     monthList.forEach((e: any, idx: number) => {
-      console.log(e.getMonthWrapper());
       this.$ScheduleWrapper.appendChild(e.getMonthWrapper());
     });
   };
@@ -131,15 +130,5 @@ export default class CalenderModal {
       return true;
     }
     return false;
-  };
-
-  getFirstDayOfWeek = (year: number, month: number | string) => {
-    if (month < 10) month = "0" + month;
-    return new Date(year + "-" + month + "-01").getDay();
-  };
-
-  changeYearMonth = (year: number, month: number) => {
-    if (month === 2) {
-    }
   };
 }
