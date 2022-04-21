@@ -192,6 +192,8 @@ export default class Page {
       `${STORAGE_KEYS.POSTIT_PAGE}_${this.state.selectedPageId}`,
       this.postitList
     );
+    this.props.reRenderPage(this.state);
+    this.render();
   };
 
   handleMouseUp(e: MouseEvent) {
