@@ -32,7 +32,7 @@ setStorage(`${STORAGE_KEYS.POSTIT_PAGE}_${1}`, [
       status: "done",
       pos_X: 1022,
       pos_Y: 311,
-      created_date: "2022-03-012 21:36",
+      created_date: "2022-03-12 21:36",
       doing_date: "2022-04-01 21:37",
       done_date: "2022-04-10 21:43",
     },
