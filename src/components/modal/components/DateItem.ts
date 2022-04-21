@@ -24,8 +24,35 @@ export default class DateItam {
   }
 
   checkSchedule = (postit: PostItState) => {
+    const today = dayjs().format("YYYY-MM-DD");
+    const startDiff = dayjs(postit.created_date).diff(this.date, "day");
+    const doneDiff = dayjs(postit.done_date).diff(this.date, "day");
+    const todayDiff = dayjs(this.date).diff(today, "day");
+
+    if (startDiff <= 0) {
+      if (todayDiff >= 0) {
+        return false;
+      }
+      if (!isNaN(doneDiff) && doneDiff <= 0) {
+        if (doneDiff === 0) {
+          return true;
+        }
+        return false;
+      }
+      return true;
+    }
+    return false;
+  };
+
+  setColor = (postit: PostItState) => {
     const [year, month, day] = this.date.split("-");
+
+    let color = "#fff6c1";
     const startDiff = dayjs(postit.created_date).diff(
+      `${year}-${month}-${day}`,
+      "day"
+    );
+    const doingDiff = dayjs(postit.doing_date).diff(
       `${year}-${month}-${day}`,
       "day"
     );
@@ -34,12 +61,16 @@ export default class DateItam {
       "day"
     );
     if (startDiff <= 0) {
-      if (!isNaN(doneDiff) && doneDiff < 0) {
-        return false;
-      }
-      return true;
+      color = "#fff6c1";
     }
-    return false;
+    if (!isNaN(doingDiff) && doingDiff <= 0) {
+      color = "#0152cc";
+    }
+    if (!isNaN(doneDiff) && doneDiff <= 0) {
+      color = "#34b37e";
+    }
+
+    return color;
   };
 
   getDailyElement = () => {
@@ -48,14 +79,12 @@ export default class DateItam {
       ${this.postitList
         .map((e: any) => {
           const processState = this.checkSchedule(e);
-          const statusColor = processState
-            ? Constant.STATUS_BG_COLOR[e.status]
-            : "#fff";
+          const statusColor = processState ? this.setColor(e) : "#fff";
           return `
           <div class="date-contents" style="background-color: ${
             processState ? "#d0cfcf" : "#fff"
           };">
-            <div class="daily-state" style="border-bottom: 2px solid ${statusColor};"></div>
+            <div class="daily-state" style="border-bottom: 3px solid ${statusColor};"></div>
           </div>`;
         })
         .join("")
