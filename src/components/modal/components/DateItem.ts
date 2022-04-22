@@ -15,6 +15,8 @@ export default class DateItam {
   date: string;
   $dailyElement;
   postitList: any;
+  domState: { [x: string]: any } = {};
+
   constructor(date: string, dailyWidth: string, postitList: any) {
     this.date = date;
     this.$dailyElement = document.createElement("li")!;
@@ -25,8 +27,10 @@ export default class DateItam {
 
   checkSchedule = (postit: PostItState) => {
     const today = dayjs().format("YYYY-MM-DD");
-    const startDiff = dayjs(postit.created_date).diff(this.date, "day");
-    const doneDiff = dayjs(postit.done_date).diff(this.date, "day");
+    const created_date = dayjs(postit.created_date).format("YYYY-MM-DD");
+    const done_date = dayjs(postit.done_date).format("YYYY-MM-DD");
+    const startDiff = dayjs(created_date).diff(this.date, "day");
+    const doneDiff = dayjs(done_date).diff(this.date, "day");
     const todayDiff = dayjs(this.date).diff(today, "day");
 
     if (startDiff <= 0) {
@@ -47,7 +51,10 @@ export default class DateItam {
   setColor = (postit: PostItState) => {
     const [year, month, day] = this.date.split("-");
 
-    let color = "#fff6c1";
+    this.domState["color"] = "#fff6c1";
+    this.domState["start"] = "0";
+    this.domState["end"] = "0";
+
     const startDiff = dayjs(postit.created_date).diff(
       `${year}-${month}-${day}`,
       "day"
@@ -61,16 +68,20 @@ export default class DateItam {
       "day"
     );
     if (startDiff <= 0) {
-      color = "#fff6c1";
+      this.domState["color"] = "#fff6c1";
+      if (startDiff === 0) {
+        this.domState["star"] = 5;
+      }
     }
     if (!isNaN(doingDiff) && doingDiff <= 0) {
-      color = "#0152cc";
+      this.domState["color"] = "#0152cc";
     }
     if (!isNaN(doneDiff) && doneDiff <= 0) {
-      color = "#34b37e";
+      this.domState["color"] = "#34b37e";
+      if (doneDiff === 0) {
+        this.domState["end"] = 5;
+      }
     }
-
-    return color;
   };
 
   getDailyElement = () => {
@@ -79,12 +90,15 @@ export default class DateItam {
       ${this.postitList
         .map((e: any) => {
           const processState = this.checkSchedule(e);
-          const statusColor = processState ? this.setColor(e) : "#fff";
+          this.setColor(e);
+          const statusColor = processState ? this.domState.color : "#fff";
           return `
           <div class="date-contents" style="background-color: ${
             processState ? "#d0cfcf" : "#fff"
-          };">
-            <div class="daily-state" style="border-bottom: 3px solid ${statusColor};"></div>
+          }; border-radius: ${this.domState.start}px 0 0 ${
+            this.domState.end
+          }px;">
+            <div class="daily-state" style="border-bottom: 3px solid ${statusColor};" ></div>
           </div>`;
         })
         .join("")
