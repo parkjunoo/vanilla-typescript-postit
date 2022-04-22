@@ -24,8 +24,6 @@ export default class Month {
     this.$monthTitle.innerText = `${year}년 ${month}월`;
     this.$monthList = document.createElement("div")!;
     this.$monthList.classList.add("month");
-    this.changeYearMonth();
-    this.render();
   }
 
   checkLeapYear = (year: number) => {
@@ -55,6 +53,7 @@ export default class Month {
         )
       );
     }
+    this.render();
   };
 
   render = () => {
@@ -64,6 +63,9 @@ export default class Month {
   };
 
   getMonthWrapper = () => {
+    this.changeYearMonth();
+    this.scheduleList = [];
+    this.$monthWrapper.innerHTML = ``;
     this.$monthWrapper.appendChild(this.$monthTitle);
     this.$monthWrapper.appendChild(this.$monthList);
     return this.$monthWrapper;

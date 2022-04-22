@@ -25,7 +25,7 @@ export default class DateItam {
     this.postitList = JSON.parse(JSON.stringify(postitList));
   }
 
-  checkSchedule = (postit: PostItState) => {
+  checkSchedule = (postit: PostItState, idx: number) => {
     const today = dayjs().format("YYYY-MM-DD");
     const created_date = dayjs(postit.created_date).format("YYYY-MM-DD");
     const done_date = dayjs(postit.done_date).format("YYYY-MM-DD");
@@ -34,7 +34,7 @@ export default class DateItam {
     const todayDiff = dayjs(this.date).diff(today, "day");
 
     if (startDiff <= 0) {
-      if (todayDiff >= 0) {
+      if (todayDiff > 0) {
         return false;
       }
       if (!isNaN(doneDiff) && doneDiff <= 0) {
@@ -88,8 +88,11 @@ export default class DateItam {
     this.$dailyElement.innerHTML = `
       <div class="date">${this.date.split("-")[2]}</div>
       ${this.postitList
-        .map((e: any) => {
-          const processState = this.checkSchedule(e);
+        .map((e: any, idx: number) => {
+          if (idx === 7) {
+            console.log("@@@@@@", e);
+          }
+          const processState = this.checkSchedule(e, idx);
           this.setColor(e);
           const statusColor = processState ? this.domState.color : "#fff";
           return `
