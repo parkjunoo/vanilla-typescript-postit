@@ -45,13 +45,20 @@ export default class CalenderModal {
     this.hide();
   }
   show = async () => {
-    await this.fetchData();
+    this.fetchData();
     this.$CalenderModal.style.display = "";
     this.$CalenderModalDimmed.style.display = "";
   };
   hide = () => {
     this.$CalenderModal.style.display = "none";
     this.$CalenderModalDimmed.style.display = "none";
+    this.state = {
+      postitList: [],
+      minDateTime: "",
+      maxDateTime: dayjs().format("YYYY-MM"),
+      monthList: [],
+      dateOptions: {},
+    };
   };
 
   fetchData = () => {
@@ -115,6 +122,7 @@ export default class CalenderModal {
   };
 
   render = () => {
+    this.$ScheduleWrapper.innerHTML = "";
     const { monthList } = this.state;
     monthList.forEach((e: any, idx: number) => {
       this.$ScheduleWrapper.appendChild(e.getMonthWrapper());
