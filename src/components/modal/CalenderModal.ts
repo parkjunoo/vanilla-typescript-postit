@@ -18,12 +18,18 @@ interface CalenderState {
   maxDateTime: string;
   monthList: any;
   dateOptions: { [x: string]: { [x: string]: any } };
+  selectedYear: string;
+  selectedMonth: string;
+  toDay: string;
+  dontMoveScroll?: string;
 }
 export default class CalenderModal {
   $CalenderModal: HTMLDivElement;
   $CalenderModalDimmed: HTMLDivElement;
   $CalenderCloseButton: HTMLDivElement;
   $ScheduleWrapper: HTMLUListElement;
+  $CalenderYearSelector: HTMLSelectElement;
+  $CalenderMonthSelector: HTMLSelectElement;
 
   state: CalenderState = {
     postitList: [],
@@ -31,6 +37,10 @@ export default class CalenderModal {
     maxDateTime: dayjs().format("YYYY-MM"),
     monthList: [],
     dateOptions: {},
+    toDay: dayjs().format("YYYY-MM"),
+    selectedYear: "",
+    selectedMonth: "",
+    dontMoveScroll: "",
   };
 
   constructor() {
@@ -42,6 +52,23 @@ export default class CalenderModal {
     this.$ScheduleWrapper = document.querySelector(".schedule-wrapper")!;
     this.$CalenderModalDimmed.addEventListener("click", this.hide);
     this.$CalenderCloseButton.addEventListener("click", this.hide);
+
+    this.$CalenderMonthSelector = document.querySelector(".month-selector")!;
+    this.$CalenderYearSelector = document.querySelector(".year-selector")!;
+
+    this.state.selectedYear = this.state.toDay.split("-")[0];
+    this.state.selectedMonth = this.state.toDay.split("-")[1];
+
+    this.$CalenderYearSelector.value = this.state.selectedYear;
+    this.$CalenderMonthSelector.value = this.state.selectedMonth;
+
+    this.$CalenderYearSelector.addEventListener("change", () => {
+      this.setYear(this.$CalenderYearSelector.value);
+    });
+
+    this.$CalenderMonthSelector.addEventListener("change", () => {
+      this.setMonth(this.$CalenderMonthSelector.value);
+    });
     this.hide();
   }
   show = async () => {
@@ -52,16 +79,21 @@ export default class CalenderModal {
   hide = () => {
     this.$CalenderModal.style.display = "none";
     this.$CalenderModalDimmed.style.display = "none";
+  };
+
+  fetchData = () => {
     this.state = {
+      ...this.state,
       postitList: [],
       minDateTime: "",
       maxDateTime: dayjs().format("YYYY-MM"),
       monthList: [],
       dateOptions: {},
+      selectedYear: this.state.toDay.split("-")[0],
+      selectedMonth: this.state.toDay.split("-")[1],
+      toDay: dayjs().format("YYYY-MM"),
     };
-  };
 
-  fetchData = () => {
     const { postitList } = this.state;
     const pageList = getStorage(STORAGE_KEYS.PAGE_LIST);
     pageList.forEach((e: any) => {
@@ -93,11 +125,68 @@ export default class CalenderModal {
       "YYYY-MM"
     );
 
+    this.fetchYearMonth();
+    this.render();
+  };
+
+  render = () => {
+    this.$ScheduleWrapper.innerHTML = "";
+    const { monthList } = this.state;
+    monthList.forEach((e: any, idx: number) => {
+      this.$ScheduleWrapper.appendChild(e.getMonthWrapper());
+    });
+
+    const yearSelectOptions = Object.keys(this.state.dateOptions);
+    this.$CalenderYearSelector.innerHTML = `
+    ${yearSelectOptions
+      .map((year) => {
+        return `<option value="${year}">${year}</option>`;
+      })
+      .join("")}
+    `;
+
+    this.setYear(this.state.selectedYear);
+  };
+
+  setYear = (year: string) => {
+    const monthSelectOptions = Object.keys(this.state.dateOptions[year]);
+    this.$CalenderMonthSelector.innerHTML = `
+    ${monthSelectOptions
+      .map((month) => {
+        const mon = Number(month) < 10 ? "0" + month : month;
+        return `<option value="${mon}" ${
+          this.state.selectedMonth === mon ? "selected" : ""
+        } >${mon}</option>`;
+      })
+      .join("")}
+    `;
+
+    this.changePageMove(
+      `${this.state.selectedYear}-${this.state.selectedMonth}`
+    );
+  };
+
+  setMonth = (month: string) => {
+    this.changePageMove(`${this.state.selectedYear}-${month}`);
+  };
+
+  changePageMove = (selected: string) => {
+    const target = document.getElementById(selected)!;
+    const month = selected.split("-")[1];
+    if (month === this.state.dontMoveScroll) return;
+    setTimeout((save) => {
+      const { x: targetX } = target.getBoundingClientRect();
+      const container = document.getElementsByClassName("modal-body")[0]!;
+      container.scroll(targetX, 0);
+    }, 200);
+    this.state.dontMoveScroll = month;
+  };
+
+  fetchYearMonth = () => {
     const yearDiff = dayjs(this.state.maxDateTime).diff(
       this.state.minDateTime,
       "year"
     );
-
     const startYear = Number(dayjs(this.state.minDateTime).format("YYYY"));
     const startMonth = Number(dayjs(this.state.minDateTime).format("MM"));
     const endYear = Number(dayjs(this.state.maxDateTime).format("YYYY"));
@@ -113,20 +202,10 @@ export default class CalenderModal {
         if (i === endYear && j === endMonth + 1) break;
         if (!isMonth) {
           this.state.dateOptions[i][j] = j;
-          this.state.monthList.push(new Month(i, j, postitList));
+          this.state.monthList.push(new Month(i, j, this.state.postitList));
         }
       }
     }
-
-    this.render();
-  };
-
-  render = () => {
-    this.$ScheduleWrapper.innerHTML = "";
-    const { monthList } = this.state;
-    monthList.forEach((e: any, idx: number) => {
-      this.$ScheduleWrapper.appendChild(e.getMonthWrapper());
-    });
   };
 
   checkLeapYear = (year: number) => {

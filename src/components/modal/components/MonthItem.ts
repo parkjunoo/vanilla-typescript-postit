@@ -18,6 +18,8 @@ export default class Month {
     this.year = year;
     this.isLeap = this.checkLeapYear(year);
     this.$monthWrapper = document.createElement("li");
+    const mon = month < 10 ? "0" + month : month;
+    this.$monthWrapper.id = `${year}-${mon}`;
     this.$monthWrapper.classList.add("month-wrapper")!;
     this.$monthTitle = document.createElement("div")!;
     this.$monthTitle.classList.add("month-title");

@@ -222,6 +222,7 @@ body {
 }
 
 .calender-dimmed {
+  z-index: 9998;
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -270,6 +271,8 @@ body {
   font-size: 0;
   letter-spacing: 0;
   word-spacing: 0;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
 }
 .modal-title {
   position: absolute;
@@ -311,7 +314,6 @@ body {
   width: 100%;
   height: 100%;
   white-space: nowrap;
-  overflow-x: scroll;
 }
 
 .month-wrapper {
@@ -350,6 +352,8 @@ body {
   height: 14px;
   font-size: 12px;
   text-align: center;
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
 }
 .daily-state {
   width: 100%;
