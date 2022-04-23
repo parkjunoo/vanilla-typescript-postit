@@ -23,6 +23,7 @@ export default class DateItam {
     this.$dailyElement.classList.add("date-wrapper");
     this.$dailyElement.style!.width = dailyWidth + "%";
     this.postitList = JSON.parse(JSON.stringify(postitList));
+    this.postitList.reverse();
   }
 
   checkSchedule = (postit: PostItState, idx: number) => {
@@ -51,7 +52,7 @@ export default class DateItam {
   setColor = (postit: PostItState) => {
     const [year, month, day] = this.date.split("-");
 
-    this.domState["color"] = "#fff6c1";
+    this.domState["color"] = "#ffe200";
     this.domState["start"] = "0";
     this.domState["end"] = "0";
 
@@ -68,7 +69,7 @@ export default class DateItam {
       "day"
     );
     if (startDiff <= 0) {
-      this.domState["color"] = "#fff6c1";
+      this.domState["color"] = "#ffe200";
       if (startDiff === 0) {
         this.domState["star"] = 5;
       }
@@ -85,28 +86,30 @@ export default class DateItam {
   };
 
   getDailyElement = () => {
+    const targetDate = dayjs().format("YYYY-MM-DD");
     this.$dailyElement.innerHTML = `
-      <div class="date">${this.date.split("-")[2]}</div>
-      ${this.postitList
-        .map((e: any, idx: number) => {
-          if (idx === 7) {
-            console.log("@@@@@@", e);
-          }
-          const processState = this.checkSchedule(e, idx);
-          this.setColor(e);
-          const statusColor = processState ? this.domState.color : "#fff";
-          return `
-          <div class="date-contents" style="background-color: ${
-            processState ? "#d0cfcf" : "#fff"
-          }; border-radius: ${this.domState.start}px 0 0 ${
-            this.domState.end
-          }px;">
-            <div class="daily-state" style="border-bottom: 3px solid ${statusColor};" ></div>
-          </div>`;
-        })
-        .join("")
-        .trim()}
+      <div class="date" style="background-color:${
+        dayjs(this.date).diff(targetDate, "day") === 0 ? "#fff6c1" : "#fff"
+      };">${this.date.split("-")[2]}</div>
     `;
+    this.postitList.forEach((target: any, idx: number) => {
+      const processState = this.checkSchedule(target, idx);
+      this.setColor(target);
+      const statusColor = processState ? this.domState.color : "#fff";
+      const $dateContentsElement = document.createElement("div");
+      $dateContentsElement.classList.add("date-contents");
+      $dateContentsElement.style.backgroundColor = processState
+        ? "#d0cfcf"
+        : "#fff";
+      $dateContentsElement.style.borderStartStartRadius =
+        this.domState.start + "px";
+      $dateContentsElement.style.borderEndEndRadius = this.domState.end + "px";
+      $dateContentsElement.innerHTML = `
+        <div class="daily-state" style="border-top: 3px solid ${statusColor};" ></div>
+      `;
+      this.$dailyElement.appendChild($dateContentsElement);
+    });
+
     return this.$dailyElement;
   };
 }
