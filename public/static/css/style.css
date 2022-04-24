@@ -335,6 +335,7 @@ body {
   height: 100%;
 }
 .date-contents {
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   width: 100%;

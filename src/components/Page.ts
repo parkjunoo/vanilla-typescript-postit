@@ -3,6 +3,7 @@ import { setStorage, getStorage } from "../helpers";
 import dayjs from "dayjs";
 import { handleMouseDown, handleMouseMove } from "../handler/movePostitHandler";
 import PostIt from "./PostIt";
+import { throws } from "assert";
 
 interface PageListItem {
   id: number;
@@ -93,6 +94,8 @@ export default class Page {
           created_date: post.state.created_date,
           doing_date: post.state.doing_date,
           done_date: post.state.done_date,
+          pageId: post.state.pageId,
+          pageName: post.state.pageName,
         },
         {
           updatePostit: this.updatePostit,
@@ -132,6 +135,8 @@ export default class Page {
         created_date: dayjs().format("YYYY-MM-DD HH:mm"),
         doing_date: null,
         done_date: null,
+        pageId: this.state.selectedPageInfo!.id,
+        pageName: this.state.selectedPageInfo!.pageName,
       },
       {
         updatePostit: this.updatePostit,

@@ -11,18 +11,25 @@ interface PostItState {
   doing_date?: string | null;
   done_date?: string | null;
 }
+
+interface Props {
+  clickPageTab: (pageId: number) => void;
+  modalHide?: () => void;
+}
 export default class DateItam {
   date: string;
   $dailyElement;
   postitList: any;
   domState: { [x: string]: any } = {};
+  props: Props;
 
-  constructor(date: string, dailyWidth: string, postitList: any) {
+  constructor(date: string, dailyWidth: string, postitList: any, props: Props) {
     this.date = date;
     this.$dailyElement = document.createElement("li")!;
     this.$dailyElement.classList.add("date-wrapper");
     this.$dailyElement.style!.width = dailyWidth + "%";
     this.postitList = JSON.parse(JSON.stringify(postitList));
+    this.props = props;
     this.postitList.reverse();
   }
 
@@ -85,6 +92,11 @@ export default class DateItam {
     }
   };
 
+  goToPage = (pageId: number, postitId: number) => {
+    this.props.clickPageTab(pageId);
+    this.props.modalHide!();
+  };
+
   getDailyElement = () => {
     const targetDate = dayjs().format("YYYY-MM-DD");
     this.$dailyElement.innerHTML = `
@@ -103,7 +115,8 @@ export default class DateItam {
         ? "#d0cfcf"
         : "#fff";
       if (processState) {
-        $dateContentsElement.setAttribute("postit-content", target.contents);
+        const hover_contents = `Page: [${target.pageName}]\n\n${target.contents}`;
+        $dateContentsElement.setAttribute("postit-content", hover_contents);
         $dateContentsElement.classList.add("title");
       }
       $dateContentsElement.style.borderStartStartRadius =
@@ -112,6 +125,9 @@ export default class DateItam {
       $dateContentsElement.innerHTML = `
         <div class="daily-state" style="border-top: 3px solid ${statusColor};" ></div>
       `;
+      $dateContentsElement.addEventListener("click", () =>
+        this.goToPage(target.pageId, target.postit_id)
+      );
 
       this.$dailyElement.appendChild($dateContentsElement);
     });

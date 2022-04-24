@@ -12,6 +12,8 @@ interface PostItState {
   created_date: string | null;
   doing_date?: string | null;
   done_date?: string | null;
+  pageId: number;
+  pageName: string;
 }
 interface PageListItem {
   id: number;
@@ -55,6 +57,8 @@ export default class Postit {
       created_date,
       doing_date,
       done_date,
+      pageId,
+      pageName,
     }: PostItState,
     props: PostItProps
   ) {
@@ -67,6 +71,8 @@ export default class Postit {
       created_date,
       doing_date,
       done_date,
+      pageId,
+      pageName,
     };
     this.props = props;
     this.$Postit = document.createElement("div");

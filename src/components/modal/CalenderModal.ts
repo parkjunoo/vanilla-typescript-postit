@@ -23,6 +23,10 @@ interface CalenderState {
   toDay: string;
   dontMoveScroll?: string;
 }
+interface Props {
+  clickPageTab: (pageId: number) => void;
+  modalHide?: () => void;
+}
 export default class CalenderModal {
   $CalenderModal: HTMLDivElement;
   $CalenderModalDimmed: HTMLDivElement;
@@ -42,8 +46,13 @@ export default class CalenderModal {
     selectedMonth: "",
     dontMoveScroll: "",
   };
+  props: Props;
 
-  constructor() {
+  constructor(props: Props) {
+    this.props = {
+      ...props,
+      modalHide: this.hide,
+    };
     this.$CalenderModal = document.querySelector(".calender-modal")!;
     this.$CalenderModalDimmed = document.querySelector(".calender-dimmed")!;
     this.$CalenderCloseButton = this.$CalenderModal.querySelector(
@@ -202,7 +211,9 @@ export default class CalenderModal {
         if (i === endYear && j === endMonth + 1) break;
         if (!isMonth) {
           this.state.dateOptions[i][j] = j;
-          this.state.monthList.push(new Month(i, j, this.state.postitList));
+          this.state.monthList.push(
+            new Month(i, j, this.state.postitList, this.props)
+          );
         }
       }
     }

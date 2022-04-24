@@ -59,7 +59,9 @@ export default class App {
       this.state
     );
 
-    this.CalenderComponent = new CalenderModal();
+    this.CalenderComponent = new CalenderModal({
+      clickPageTab: this.clickPageTab,
+    });
     this.$CalenderButton.addEventListener("click", (e) => {
       this.CalenderComponent.show();
     });
@@ -69,6 +71,7 @@ export default class App {
 
   addNewPage = () => {
     let { pageList, maxPageId } = this.state;
+
     const newIndex = (() => {
       this.state = {
         ...this.state,
@@ -83,7 +86,11 @@ export default class App {
       doingCount: 0,
       doneCount: 0,
     });
+    const newTabInfo = this.state.pageList!.find(
+      (e) => e.id === maxPageId! + 1
+    );
     this.state.selectedPageId = this.state.maxPageId!;
+    this.state.selectedPageInfo = newTabInfo;
     setStorage(STORAGE_KEYS.PAGE_LIST, pageList!);
     this.setState(this.state);
   };
@@ -96,6 +103,13 @@ export default class App {
       ...this.state,
       selectedPageInfo: newTabInfo,
     };
+    const postitList = getStorage(`${STORAGE_KEYS.POSTIT_PAGE}_${tab_id}`);
+    const updatePostit = postitList!.map((e: Postit) => {
+      e.state.pageName = newPageName;
+      e.state.pageId = tab_id;
+      return e;
+    });
+    setStorage(`${STORAGE_KEYS.POSTIT_PAGE}_${tab_id}`, updatePostit);
     setStorage(STORAGE_KEYS.PAGE_LIST, this.state.pageList!);
     this.setState(newState);
   };
