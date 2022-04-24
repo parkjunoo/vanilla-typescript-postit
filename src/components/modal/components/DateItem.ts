@@ -98,11 +98,13 @@ export default class DateItam {
       const statusColor = processState ? this.domState.color : "#fff";
       const $dateContentsElement = document.createElement("div");
       $dateContentsElement.classList.add("date-contents");
+
       $dateContentsElement.style.backgroundColor = processState
         ? "#d0cfcf"
         : "#fff";
       if (processState) {
-        $dateContentsElement.title = target.contents;
+        $dateContentsElement.setAttribute("postit-content", target.contents);
+        $dateContentsElement.classList.add("title");
       }
       $dateContentsElement.style.borderStartStartRadius =
         this.domState.start + "px";

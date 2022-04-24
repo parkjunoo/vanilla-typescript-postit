@@ -360,21 +360,24 @@ body {
   height: 100%;
 }
 
-[title] {
+.title {
   position: relative;
 }
-
-[title]:after {
-  content: attr(title);
+.title::after {
+  content: attr(postit-content);
   position: absolute;
+  display: none;
   left: 50%;
-  bottom: 100%; /* put it on the top */
-  background-color: yellow;
+  bottom: 100%;
+  z-index: 1000;
+  background-color: rgb(84, 84, 84);
+  font-size: 10px;
+  color: white;
+  white-space: pre;
+  padding: 10px;
+  border-radius: 10px;
   width: max-content;
-  opacity: 0;
-  transition: opacity 0.75s ease-in-out; /* 👈 Change the time to meet your requirements. */
 }
-
-[title]:hover:after {
-  opacity: 1;
+.title:hover::after {
+  display: block;
 }
