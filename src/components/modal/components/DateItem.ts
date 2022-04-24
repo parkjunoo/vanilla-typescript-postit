@@ -101,12 +101,16 @@ export default class DateItam {
       $dateContentsElement.style.backgroundColor = processState
         ? "#d0cfcf"
         : "#fff";
+      if (processState) {
+        $dateContentsElement.title = target.contents;
+      }
       $dateContentsElement.style.borderStartStartRadius =
         this.domState.start + "px";
       $dateContentsElement.style.borderEndEndRadius = this.domState.end + "px";
       $dateContentsElement.innerHTML = `
         <div class="daily-state" style="border-top: 3px solid ${statusColor};" ></div>
       `;
+
       this.$dailyElement.appendChild($dateContentsElement);
     });
 

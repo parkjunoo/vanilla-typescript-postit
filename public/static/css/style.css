@@ -359,3 +359,22 @@ body {
   width: 100%;
   height: 100%;
 }
+
+[title] {
+  position: relative;
+}
+
+[title]:after {
+  content: attr(title);
+  position: absolute;
+  left: 50%;
+  bottom: 100%; /* put it on the top */
+  background-color: yellow;
+  width: max-content;
+  opacity: 0;
+  transition: opacity 0.75s ease-in-out; /* 👈 Change the time to meet your requirements. */
+}
+
+[title]:hover:after {
+  opacity: 1;
+}
