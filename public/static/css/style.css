@@ -115,6 +115,7 @@ body {
   color: lightslategray;
 }
 .postit-delete-button {
+  cursor: pointer;
   width: 2.5rem;
   height: 2rem;
   display: flex;
@@ -156,12 +157,21 @@ body {
   font-size: 1.4rem;
 }
 .postit-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: -webkit-grab;
+  cursor: grab;
   width: 18rem;
   height: 18rem;
   background-color: #fff6c1;
   box-shadow: -6px -6px 5px rgba(228, 226, 226, 0.7),
     6px 6px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.412);
+  font-weight: 700;
 }
 .postit-memo-detached {
   width: 240px;
@@ -179,6 +189,7 @@ body {
   height: 4rem;
 }
 .calender-button {
+  cursor: pointer;
   position: absolute;
   right: 0;
   display: flex;
@@ -205,6 +216,7 @@ body {
   width: 7rem;
 }
 .tab-delete-button {
+  cursor: pointer;
   margin-left: 1rem;
   font-size: 1rem;
 }
@@ -212,6 +224,7 @@ body {
   border-bottom: 0px;
 }
 .add-tab-button {
+  cursor: copy;
   display: flex;
   justify-content: center;
   align-items: center;
