@@ -1,6 +1,9 @@
 import Daily from "./DateItem";
 import dayjs from "dayjs";
-
+interface Props {
+  clickPageTab: (pageId: number) => void;
+  modalHide?: () => void;
+}
 export default class Month {
   $monthWrapper: HTMLLIElement;
   $monthTitle: HTMLDivElement;
@@ -12,8 +15,10 @@ export default class Month {
   monthEndDay = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   dailyScheduleJob: any = [];
   scheduleList: any = [];
-  constructor(year: number, month: number, postitList: any) {
+  props: Props;
+  constructor(year: number, month: number, postitList: any, props: Props) {
     this.postitList = postitList;
+    this.props = props;
     this.month = Number(month < 10 ? "0" + month : month);
     this.year = year;
     this.isLeap = this.checkLeapYear(year);
@@ -51,7 +56,8 @@ export default class Month {
         new Daily(
           `${this.year}-${this.month}-${date}`,
           dailyWidth,
-          this.postitList
+          this.postitList,
+          this.props
         )
       );
     }

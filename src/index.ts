@@ -23,6 +23,8 @@ if (!getStorage(STORAGE_KEYS.PAGE_LIST)) {
         created_date: "2022-03-10 21:36",
         doing_date: "2022-03-11 21:37",
         done_date: "2022-03-18 21:43",
+        pageId: 1,
+        pageName: "포스트잇 개발",
       },
     },
     {
@@ -36,6 +38,8 @@ if (!getStorage(STORAGE_KEYS.PAGE_LIST)) {
         created_date: "2022-03-12 21:36",
         doing_date: "2022-04-01 21:37",
         done_date: "2022-04-10 21:43",
+        pageId: 1,
+        pageName: "포스트잇 개발",
       },
     },
     {
@@ -48,6 +52,8 @@ if (!getStorage(STORAGE_KEYS.PAGE_LIST)) {
         created_date: "2022-04-20 21:37",
         doing_date: "2022-04-20 21:37",
         done_date: "2022-04-20 21:43",
+        pageId: 1,
+        pageName: "포스트잇 개발",
       },
     },
     {
@@ -61,6 +67,8 @@ if (!getStorage(STORAGE_KEYS.PAGE_LIST)) {
         created_date: "2022-03-20 21:37",
         doing_date: null,
         done_date: null,
+        pageId: 1,
+        pageName: "포스트잇 개발",
       },
     },
     {
@@ -73,6 +81,8 @@ if (!getStorage(STORAGE_KEYS.PAGE_LIST)) {
         created_date: "2022-03-20 21:37",
         doing_date: "2022-04-01 21:43",
         done_date: null,
+        pageId: 1,
+        pageName: "포스트잇 개발",
       },
     },
     {
@@ -85,6 +95,8 @@ if (!getStorage(STORAGE_KEYS.PAGE_LIST)) {
         created_date: "2022-04-10 21:37",
         doing_date: "2022-04-20 21:43",
         done_date: null,
+        pageId: 1,
+        pageName: "포스트잇 개발",
       },
     },
     {
@@ -98,6 +110,8 @@ if (!getStorage(STORAGE_KEYS.PAGE_LIST)) {
         created_date: "2022-04-20 21:38",
         doing_date: null,
         done_date: null,
+        pageId: 1,
+        pageName: "포스트잇 개발",
       },
     },
   ]);
