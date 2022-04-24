@@ -47,7 +47,7 @@ export default class Page {
 
     document.addEventListener("dragstart", (e: DragEvent) => {
       e.dataTransfer!.setData("startX", `${e.clientX! - 22}`);
-      e.dataTransfer!.setData("startY", `${e.clientY! - 74}`);
+      e.dataTransfer!.setData("startY", `${e.clientY! - 100}`);
     });
 
     document.addEventListener("dragover", (e) => e.preventDefault());
