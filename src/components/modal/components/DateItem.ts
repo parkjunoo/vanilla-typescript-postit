@@ -118,6 +118,9 @@ export default class DateItam {
         const hover_contents = `Page: [${target.pageName}]\n\n${target.contents}`;
         $dateContentsElement.setAttribute("postit-content", hover_contents);
         $dateContentsElement.classList.add("title");
+        $dateContentsElement.addEventListener("click", () =>
+          this.goToPage(target.pageId, target.postit_id)
+        );
       }
       $dateContentsElement.style.borderStartStartRadius =
         this.domState.start + "px";
@@ -125,9 +128,6 @@ export default class DateItam {
       $dateContentsElement.innerHTML = `
         <div class="daily-state" style="border-top: 3px solid ${statusColor};" ></div>
       `;
-      $dateContentsElement.addEventListener("click", () =>
-        this.goToPage(target.pageId, target.postit_id)
-      );
 
       this.$dailyElement.appendChild($dateContentsElement);
     });
