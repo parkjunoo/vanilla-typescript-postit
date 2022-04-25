@@ -382,7 +382,7 @@ body {
   position: absolute;
   display: none;
   left: 50%;
-  bottom: 100%;
+  top: 100%;
   z-index: 1000;
   background-color: rgb(84, 84, 84);
   font-size: 10px;
