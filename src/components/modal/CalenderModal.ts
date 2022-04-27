@@ -2,28 +2,9 @@ import Month from "./components/MonthItem";
 import { getStorage } from "../../helpers";
 import dayjs from "dayjs";
 import { STORAGE_KEYS } from "../../common/constant";
-interface PostItState {
-  postit_id: number;
-  contents?: string;
-  status: string | number;
-  pos_X: number;
-  pos_Y: number;
-  created_date: string | null;
-  doing_date?: string | null;
-  done_date?: string | null;
-}
-interface CalenderState {
-  postitList: PostItState[];
-  minDateTime: string;
-  maxDateTime: string;
-  monthList: any;
-  dateOptions: { [x: string]: { [x: string]: any } };
-  selectedYear: string;
-  selectedMonth: string;
-  toDay: string;
-  dontMoveScroll?: string;
-}
-interface Props {
+import { CalenderState, PostItState } from "../../interfaces/state";
+
+interface CalenderModalProps {
   clickPageTab: (pageId: number) => void;
   modalHide?: () => void;
 }
@@ -46,9 +27,9 @@ export default class CalenderModal {
     selectedMonth: "",
     dontMoveScroll: "",
   };
-  props: Props;
+  props: CalenderModalProps;
 
-  constructor(props: Props) {
+  constructor(props: CalenderModalProps) {
     this.props = {
       ...props,
       modalHide: this.hide,
