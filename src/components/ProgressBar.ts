@@ -1,16 +1,4 @@
-interface PageListItem {
-  id: number;
-  pageName: string;
-  totalCount: number;
-  doingCount: number;
-  doneCount: number;
-}
-interface initState {
-  pageList?: PageListItem[];
-  lastPageId?: number;
-  selectedPageId?: number;
-  selectedPageInfo?: PageListItem;
-}
+import { initState } from "../interfaces/state";
 
 export default class ProgressBar {
   $ProgressBar: HTMLDivElement;

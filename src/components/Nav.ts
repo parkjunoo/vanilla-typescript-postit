@@ -1,18 +1,6 @@
-interface PageListItem {
-  id: number;
-  pageName: string;
-  totalCount: number;
-  doingCount: number;
-  doneCount: number;
-}
-interface initState {
-  //   [key: string]: number | string | object | [];
-  pageList?: PageListItem[];
-  lastPageId?: number;
-  selectedPageId?: number;
-  selectedPageInfo?: PageListItem;
-}
-interface props {
+import { initState, PageListItem } from "../interfaces/state";
+
+interface NavProps {
   addNewPage: () => void;
   deletePage: (id: number) => void;
   clickPageTab: (id: number) => void;
@@ -24,9 +12,9 @@ export default class Nav {
   $NavCalenderButton: HTMLDivElement;
   $NavContainer: HTMLDivElement;
   state: initState;
-  props: props;
+  props: NavProps;
 
-  constructor($el: HTMLDivElement, initState: initState, props: props) {
+  constructor($el: HTMLDivElement, initState: initState, props: NavProps) {
     this.$Nav = $el;
     this.state = initState;
     this.props = props;

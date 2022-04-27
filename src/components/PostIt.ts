@@ -2,41 +2,15 @@ import { setStorage, getStorage } from "../helpers";
 import ProcessToggle from "./ProcessToggle";
 import Constant from "../common/constant";
 import dayjs from "dayjs";
-
-interface PostItState {
-  postit_id: number;
-  contents?: string;
-  status: string | number;
-  pos_X: number;
-  pos_Y: number;
-  created_date: string | null;
-  doing_date?: string | null;
-  done_date?: string | null;
-  pageId: number;
-  pageName: string;
-}
-interface PageListItem {
-  id: number;
-  pageName: string;
-  totalCount: number;
-  doingCount: number;
-  doneCount: number;
-}
-
-interface initState {
-  //   [key: string]: number | string | object | [];
-  pageList?: PageListItem[];
-  lastPageId?: number;
-  selectedPageId?: number;
-  postitList?: Postit[];
-  selectedPageInfo?: PageListItem;
-}
+import { initState, PostItState } from "../interfaces/state";
+import { DomHandler } from "../interfaces/event";
 
 interface PostItProps {
   updatePostit: () => void;
   deletePostit: (e: MouseEvent, postit_id: number) => void;
   reRenderPage: (newState: initState) => void;
 }
+
 export default class Postit {
   $Postit: HTMLDivElement;
   $PostItContents: HTMLDivElement;

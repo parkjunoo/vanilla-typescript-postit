@@ -1,6 +1,7 @@
 import App from "./app";
 import { setStorage, getStorage } from "./helpers";
 import { STORAGE_KEYS } from "./common/constant";
+import { initState, PageListItem } from "./interfaces/state";
 
 if (!getStorage(STORAGE_KEYS.PAGE_LIST)) {
   setStorage(STORAGE_KEYS.PAGE_LIST, [
@@ -115,22 +116,6 @@ if (!getStorage(STORAGE_KEYS.PAGE_LIST)) {
       },
     },
   ]);
-}
-
-interface PageListItem {
-  id: number;
-  pageName: string;
-  totalCount: number;
-  doingCount: number;
-  doneCount: number;
-}
-interface initState {
-  //   [key: string]: number | string | object | [];
-  pageList: PageListItem[];
-  lastPageId?: number;
-  selectedPageId?: number;
-  selectedPageInfo?: PageListItem;
-  maxPageId?: number;
 }
 
 const $App: HTMLElement = document.querySelector(".app")!;
