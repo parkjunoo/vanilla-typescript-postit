@@ -2,39 +2,24 @@ import { STORAGE_KEYS } from "../common/constant";
 import { setStorage, getStorage } from "../helpers";
 import dayjs from "dayjs";
 import { handleMouseDown, handleMouseMove } from "../handler/movePostitHandler";
-import PostIt from "./PostIt";
-import { throws } from "assert";
+import { initState } from "../interfaces/state";
+import { DomHandler, ElementMouseEvent } from "../interfaces/event";
+import Postit from "../components/PostIt";
 
-interface PageListItem {
-  id: number;
-  pageName: string;
-  totalCount: number;
-  doingCount: number;
-  doneCount: number;
-}
-
-interface initState {
-  //   [key: string]: number | string | object | [];
-  pageList?: PageListItem[];
-  lastPageId?: number;
-  selectedPageId?: number;
-  postitList?: PostIt[];
-  selectedPageInfo?: PageListItem;
-}
-
-interface props {
+interface pageProps {
   reRenderPage: (newState: initState) => void;
 }
+
 export default class Page {
   $Page: HTMLDivElement;
   $PostItContainer: HTMLDivElement;
   $PostItBody: HTMLDivElement;
   state: initState;
-  props: props;
-  postitList: PostIt[] = [];
+  props: pageProps;
+  postitList: Postit[] = [];
   postitLastId: number = 1;
 
-  constructor($el: HTMLDivElement, initState: initState, props: props) {
+  constructor($el: HTMLDivElement, initState: initState, props: pageProps) {
     this.$Page = $el;
     this.state = initState;
     this.props = props;
@@ -58,7 +43,7 @@ export default class Page {
   }
 
   fetchData(selectedPageId: number) {
-    let postits: PostIt[] = getStorage(
+    let postits: Postit[] = getStorage(
       `${STORAGE_KEYS.POSTIT_PAGE}_${selectedPageId}`
     );
 
@@ -71,7 +56,7 @@ export default class Page {
     let doingCount = 0;
     let doneCount = 0;
 
-    this.postitList = postits.map((post: PostIt) => {
+    this.postitList = postits.map((post: Postit) => {
       if (post.state.postit_id > this.postitLastId)
         this.postitLastId = post.state.postit_id;
 
@@ -84,7 +69,7 @@ export default class Page {
           break;
       }
 
-      return new PostIt(
+      return new Postit(
         {
           postit_id: post.state.postit_id,
           status: post.state.status,
@@ -123,7 +108,7 @@ export default class Page {
     const startX = Number(e.dataTransfer!.getData("startX"));
     const startY = Number(e.dataTransfer!.getData("startY"));
 
-    const newPostit = new PostIt(
+    const newPostit = new Postit(
       {
         postit_id: (() => {
           this.postitLastId += 1;
@@ -183,7 +168,7 @@ export default class Page {
     );
   }
 
-  deletePostit = (e: MouseEvent, postid_id: number) => {
+  deletePostit = (e: ElementMouseEvent<MouseEvent>, postid_id: number) => {
     e.stopPropagation();
     e.preventDefault();
     const target = this.postitList.findIndex(
@@ -201,12 +186,11 @@ export default class Page {
     this.render();
   };
 
-  handleMouseUp(e: MouseEvent) {
+  handleMouseUp(e: DomHandler<HTMLDivElement>) {
     e.preventDefault();
-    const target = e.target as HTMLDivElement;
+    const target = e.target;
     const { id, style } = target.parentElement!;
-
-    const postit = this.postitList.find((e: PostIt) => {
+    const postit = this.postitList.find((e: Postit) => {
       return e.state.postit_id === Number(id);
     });
     if (!postit) return;

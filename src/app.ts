@@ -1,26 +1,10 @@
 import Nav from "./components/Nav";
 import Page from "./components/Page";
-import Postit from "./components/PostIt";
 import ProgressBar from "./components/ProgressBar";
 import CalenderModal from "./components/modal/CalenderModal";
 import { STORAGE_KEYS } from "./common/constant";
 import { setStorage, getStorage, removeStorage } from "./helpers";
-
-interface PageListItem {
-  id: number;
-  pageName: string;
-  totalCount: number;
-  doingCount: number;
-  doneCount: number;
-}
-interface initState {
-  pageList?: PageListItem[];
-  lastPageId?: number;
-  selectedPageId?: number;
-  selectedPageInfo?: PageListItem;
-  maxPageId?: number;
-  postitList?: Postit[];
-}
+import { initState, Postit } from "./interfaces/state";
 
 export default class App {
   $App: HTMLElement;
