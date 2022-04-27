@@ -10,6 +10,7 @@ interface PostItProps {
   deletePostit: (e: MouseEvent, postit_id: number) => void;
   reRenderPage: (newState: initState) => void;
 }
+
 export default class Postit {
   $Postit: HTMLDivElement;
   $PostItContents: HTMLDivElement;
