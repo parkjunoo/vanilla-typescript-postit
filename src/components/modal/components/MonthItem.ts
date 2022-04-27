@@ -1,9 +1,11 @@
 import Daily from "./DateItem";
-import dayjs from "dayjs";
-interface Props {
+import { PostItState } from "../../../interfaces/state";
+
+interface MonthProps {
   clickPageTab: (pageId: number) => void;
   modalHide?: () => void;
 }
+
 export default class Month {
   $monthWrapper: HTMLLIElement;
   $monthTitle: HTMLDivElement;
@@ -11,12 +13,16 @@ export default class Month {
   month: number;
   year: number;
   isLeap: boolean;
-  postitList: any;
+  postitList: PostItState[];
   monthEndDay = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-  dailyScheduleJob: any = [];
-  scheduleList: any = [];
-  props: Props;
-  constructor(year: number, month: number, postitList: any, props: Props) {
+  scheduleList: Daily[] = [];
+  props: MonthProps;
+  constructor(
+    year: number,
+    month: number,
+    postitList: PostItState[],
+    props: MonthProps
+  ) {
     this.postitList = postitList;
     this.props = props;
     this.month = Number(month < 10 ? "0" + month : month);
@@ -65,7 +71,7 @@ export default class Month {
   };
 
   render = () => {
-    this.scheduleList.forEach((e: any) => {
+    this.scheduleList.forEach((e: Daily) => {
       this.$monthList.appendChild(e.getDailyElement());
     });
   };

@@ -1,29 +1,23 @@
 import dayjs from "dayjs";
-import Constant from "../../../common/constant";
+import { PostItState } from "../../../interfaces/state";
 
-interface PostItState {
-  postit_id: number;
-  contents?: string;
-  status: string | number;
-  pos_X: number;
-  pos_Y: number;
-  created_date: string | null;
-  doing_date?: string | null;
-  done_date?: string | null;
-}
-
-interface Props {
+interface DateItamProps {
   clickPageTab: (pageId: number) => void;
   modalHide?: () => void;
 }
 export default class DateItam {
   date: string;
   $dailyElement;
-  postitList: any;
+  postitList: PostItState[];
   domState: { [x: string]: any } = {};
-  props: Props;
+  props: DateItamProps;
 
-  constructor(date: string, dailyWidth: string, postitList: any, props: Props) {
+  constructor(
+    date: string,
+    dailyWidth: string,
+    postitList: PostItState[],
+    props: DateItamProps
+  ) {
     this.date = date;
     this.$dailyElement = document.createElement("li")!;
     this.$dailyElement.classList.add("date-wrapper");
@@ -104,9 +98,9 @@ export default class DateItam {
         dayjs(this.date).diff(targetDate, "day") === 0 ? "#fff6c1" : "#fff"
       };">${this.date.split("-")[2]}</div>
     `;
-    this.postitList.forEach((target: any, idx: number) => {
-      const processState = this.checkSchedule(target, idx);
-      this.setColor(target);
+    this.postitList.forEach((postit: PostItState, idx: number) => {
+      const processState = this.checkSchedule(postit, idx);
+      this.setColor(postit);
       const statusColor = processState ? this.domState.color : "#fff";
       const $dateContentsElement = document.createElement("div");
       $dateContentsElement.classList.add("date-contents");
@@ -115,11 +109,11 @@ export default class DateItam {
         ? "#d0cfcf"
         : "#fff";
       if (processState) {
-        const hover_contents = `Page: [${target.pageName}]\n\n${target.contents}`;
+        const hover_contents = `Page: [${postit.pageName}]\n\n${postit.contents}`;
         $dateContentsElement.setAttribute("postit-content", hover_contents);
         $dateContentsElement.classList.add("title");
         $dateContentsElement.addEventListener("click", () =>
-          this.goToPage(target.pageId, target.postit_id)
+          this.goToPage(postit.pageId, postit.postit_id)
         );
       }
       $dateContentsElement.style.borderStartStartRadius =
