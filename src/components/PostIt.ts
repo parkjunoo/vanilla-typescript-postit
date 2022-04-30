@@ -109,6 +109,7 @@ export default class Postit {
   }
 
   dbClickPostit = (e: MouseEvent) => {
+    e.stopPropagation();
     const $PostitContents = e.target as HTMLDivElement;
     const $InputForm =
       $PostitContents.parentElement?.querySelector<HTMLTextAreaElement>(
