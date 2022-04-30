@@ -25,6 +25,10 @@ body {
   padding: 20px;
   background-color: rgb(247, 247, 247);
 }
+.postit-body {
+  width: 100%;
+  height: 100%;
+}
 .postit-header {
   width: 100%;
   height: 2vh;
@@ -157,6 +161,7 @@ body {
   font-size: 1.4rem;
 }
 .postit-container {
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;

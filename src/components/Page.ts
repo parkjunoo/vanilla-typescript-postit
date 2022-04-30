@@ -30,10 +30,11 @@ export default class Page {
 
     this.$PostItContainer = this.$Page.querySelector(".postit-container")!;
     this.$PostItBody = this.$Page.querySelector(".postit-body")!;
+    this.$Page.addEventListener("dblclick", this.addNewPostIt);
 
     document.addEventListener("dragstart", (e: DragEvent) => {
-      e.dataTransfer!.setData("startX", `${e.clientX! - 22}`);
-      e.dataTransfer!.setData("startY", `${e.clientY! - 100}`);
+      e.dataTransfer!.setData("startX", `${e.clientX!}`);
+      e.dataTransfer!.setData("startY", `${e.clientY!}`);
     });
 
     document.addEventListener("dragover", (e) => e.preventDefault());
@@ -101,12 +102,19 @@ export default class Page {
     this.render();
   }
 
-  addNewPostIt = (e: DragEvent) => {
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
+  addNewPostIt = (e: DragEvent | MouseEvent) => {
+    let startX = 0;
+    let startY = 0;
+    let mouseX = e.clientX;
+    let mouseY = e.clientY;
 
-    const startX = Number(e.dataTransfer!.getData("startX"));
-    const startY = Number(e.dataTransfer!.getData("startY"));
+    if (e instanceof DragEvent) {
+      startX = Number(e.dataTransfer!.getData("startX")) - 10;
+      startY = Number(e.dataTransfer!.getData("startY")) - 125;
+    } else {
+      mouseX = e.offsetX - 85;
+      mouseY = e.offsetY + 20;
+    }
 
     const newPostit = new Postit(
       {

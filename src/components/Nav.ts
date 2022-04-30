@@ -66,8 +66,7 @@ export default class Nav {
       });
 
       e.addEventListener("dblclick", (e) => {
-        e.stopPropagation();
-
+        e.preventDefault();
         $textArea.style.display = "none";
         $NavNameForm.style.display = "";
 
