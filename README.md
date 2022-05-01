@@ -3,7 +3,6 @@ https://vanillats-postit.netlify.app/
 #
 <pre>
 2020-04-11 ~ 2020-04-22
-typescript를 공부하기 위해 재미로 만든 레포입니다.
 </pre>
 #
 ## useage 
